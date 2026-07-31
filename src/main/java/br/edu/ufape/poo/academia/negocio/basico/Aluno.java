@@ -1,9 +1,9 @@
 package br.edu.ufape.poo.academia.negocio.basico;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.ArrayList;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
