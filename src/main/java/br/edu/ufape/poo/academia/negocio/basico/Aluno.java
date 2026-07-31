@@ -25,10 +25,12 @@ public class Aluno extends Pessoa {
     @OneToMany
     private List<Pagamento> listaPagamentos = new ArrayList<>();
 
+	// Construtor vazio
     protected Aluno() {
         super();
     }
 
+    // Construtor com parâmetros
     public Aluno(String nome, String cpf, String email, String telefone,
                  String matricula, LocalDate dataMatricula, String statusMatricula) {
 
@@ -38,6 +40,8 @@ public class Aluno extends Pessoa {
         this.dataMatricula = dataMatricula;
         this.statusMatricula = statusMatricula;
     }
+    
+    // Getters e Setters
 
     public String getMatricula() {
         return matricula;
@@ -67,6 +71,8 @@ public class Aluno extends Pessoa {
         return plano;
     }
     
+    // Métodos exclusivos
+    
     public void vincularPlano(Plano plano) {
         this.plano = plano;
     }
@@ -78,6 +84,8 @@ public class Aluno extends Pessoa {
     public void adicionarPagamento(Pagamento pagamento) {
         this.listaPagamentos.add(pagamento);
     }
+    
+    // HashCode - Equals
     
     @Override
     public int hashCode() {

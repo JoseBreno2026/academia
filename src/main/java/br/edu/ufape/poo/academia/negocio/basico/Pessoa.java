@@ -67,6 +67,8 @@ public abstract class Pessoa {
         this.telefone = telefone;
     }
 
+    // HashCode - Equals
+
     @Override
     public int hashCode() {
         return Objects.hash(cpf, email, id, nome, telefone);
