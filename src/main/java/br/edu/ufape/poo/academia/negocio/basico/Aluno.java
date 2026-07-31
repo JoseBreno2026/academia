@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class Aluno extends Pessoa {
@@ -16,7 +16,7 @@ public class Aluno extends Pessoa {
     private LocalDate dataMatricula;
     private String statusMatricula;
     
-    @OneToOne
+    @ManyToOne
     private Plano plano;
 
     @OneToMany
