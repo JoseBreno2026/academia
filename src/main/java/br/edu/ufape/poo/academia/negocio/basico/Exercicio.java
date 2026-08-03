@@ -25,7 +25,7 @@ public class Exercicio {
 
     // Construtor vazio
     public Exercicio() {
-    	super();
+        super();
     }
 
     // Construtor com parâmetros
@@ -85,8 +85,20 @@ public class Exercicio {
     public void setTipoExercicio(TipoExercicio tipoExercicio) {
         this.tipoExercicio = tipoExercicio;
     }
-    
- // HashCode - Equals
+
+    // Aliases para suporte à compatibilidade
+    public String getNome() {
+        return this.tipoExercicio != null ? this.tipoExercicio.getNome() : null;
+    }
+
+    public void setNome(String nome) {
+        if (this.tipoExercicio == null) {
+            this.tipoExercicio = new TipoExercicio();
+        }
+        this.tipoExercicio.setNome(nome);
+    }
+
+    // HashCode - Equals
     @Override
     public int hashCode() {
         return Objects.hash(id, series, repeticoes, carga, descansoSegundos, tipoExercicio);
@@ -100,9 +112,9 @@ public class Exercicio {
             return false;
         if (getClass() != obj.getClass())
             return false;
-            
+
         Exercicio other = (Exercicio) obj;
-        
+
         return Objects.equals(id, other.id) 
                 && series == other.series 
                 && repeticoes == other.repeticoes 

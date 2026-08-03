@@ -14,10 +14,10 @@ public class Instrutor extends Pessoa {
     private String especialidade;
     private double salario;
 
-    @OneToMany
+    @OneToMany(mappedBy = "instrutor")
     private List<Treino> listaTreinos = new ArrayList<>();
 
-    protected Instrutor() {
+    public Instrutor() {
         super();
     }
 
@@ -31,6 +31,10 @@ public class Instrutor extends Pessoa {
 
     public String getCref() {
         return cref;
+    }
+
+    public void setCref(String cref) {
+        this.cref = cref;
     }
 
     public String getEspecialidade() {
@@ -53,12 +57,10 @@ public class Instrutor extends Pessoa {
         return listaTreinos;
     }
 
-    // Métodos exclusivos
     public void criarTreino(Treino treino) {
         this.listaTreinos.add(treino);
+        treino.setInstrutor(this);
     }
-
-    // HashCode - Equals
 
     @Override
     public int hashCode() {

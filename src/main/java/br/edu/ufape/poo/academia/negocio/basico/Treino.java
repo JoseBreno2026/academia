@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -23,8 +25,12 @@ public class Treino {
     private LocalDate dataFim;
     private boolean ativo;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "treino_id")
     private List<Exercicio> listaExercicios = new ArrayList<>();
+
+    @ManyToOne
+    private Instrutor instrutor;
 
     public Treino() {
     }
@@ -80,7 +86,22 @@ public class Treino {
         return listaExercicios;
     }
 
+    public void setListaExercicios(List<Exercicio> listaExercicios) {
+        this.listaExercicios = listaExercicios;
+    }
+
     public void adicionarExercicio(Exercicio exercicio) {
+        if (this.listaExercicios == null) {
+            this.listaExercicios = new ArrayList<>();
+        }
         this.listaExercicios.add(exercicio);
+    }
+
+    public Instrutor getInstrutor() {
+        return instrutor;
+    }
+
+    public void setInstrutor(Instrutor instrutor) {
+        this.instrutor = instrutor;
     }
 }

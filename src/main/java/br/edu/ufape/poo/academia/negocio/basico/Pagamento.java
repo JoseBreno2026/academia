@@ -1,6 +1,8 @@
 package br.edu.ufape.poo.academia.negocio.basico;
 
 import java.time.LocalDate;
+import java.util.Objects;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -66,5 +68,46 @@ public class Pagamento {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    // Aliases para compatibilidade com os testes
+    public double getValor() {
+        return valorPago;
+    }
+
+    public void setValor(double valor) {
+        this.valorPago = valor;
+    }
+
+    public String getFormaPagamento() {
+        return status;
+    }
+
+    public void setFormaPagamento(String formaPagamento) {
+        this.status = formaPagamento;
+    }
+
+    // HashCode - Equals
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, dataPagamento, valorPago, dataVencimento, status);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+
+        Pagamento other = (Pagamento) obj;
+
+        return Objects.equals(id, other.id)
+                && Objects.equals(dataPagamento, other.dataPagamento)
+                && Double.doubleToLongBits(valorPago) == Double.doubleToLongBits(other.valorPago)
+                && Objects.equals(dataVencimento, other.dataVencimento)
+                && Objects.equals(status, other.status);
     }
 }

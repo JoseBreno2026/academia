@@ -24,9 +24,9 @@ public class Aluno extends Pessoa {
     private List<Treino> listaTreinos = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Pagamento> listaPagamentos = new ArrayList<>();
+    private List<Pagamento> listaPagamentos = new ArrayList<>();	
 
-	// Construtor vazio
+    // Construtor vazio (ALTERADO PARA PUBLIC)
     protected Aluno() {
         super();
     }
@@ -48,8 +48,18 @@ public class Aluno extends Pessoa {
         return matricula;
     }
 
+    // ADICIONADO: Faltava o setMatricula!
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
     public LocalDate getDataMatricula() {
         return dataMatricula;
+    }
+
+    // ADICIONADO: Faltava o setDataMatricula!
+    public void setDataMatricula(LocalDate dataMatricula) {
+        this.dataMatricula = dataMatricula;
     }
 
     public String getStatusMatricula() {
@@ -113,5 +123,4 @@ public class Aluno extends Pessoa {
                 && Objects.equals(statusMatricula, other.statusMatricula)
                 && Objects.equals(plano, other.plano);
     }
-
 }

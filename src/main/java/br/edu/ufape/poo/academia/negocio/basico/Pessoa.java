@@ -12,17 +12,18 @@ import jakarta.persistence.InheritanceType;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Pessoa {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String nome;
-	private String cpf;
-	private String email;
-	private String telefone;
-	
-	// Construtor vazio
-    protected Pessoa() {
-    	super();
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String nome;
+    private String cpf;
+    private String email;
+    private String telefone;
+    
+    // Construtor vazio
+    public Pessoa() {
+        super();
     }
 
     // Construtor com parâmetros
@@ -39,6 +40,10 @@ public abstract class Pessoa {
         return this.id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return this.nome;
     }
@@ -49,6 +54,11 @@ public abstract class Pessoa {
 
     public String getCpf() {
         return this.cpf;
+    }
+
+    // ADICIONADO: Faltava o setCpf!
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getEmail() {
