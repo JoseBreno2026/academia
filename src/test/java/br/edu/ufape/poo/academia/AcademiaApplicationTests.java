@@ -10,6 +10,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.edu.ufape.poo.academia.dados.AlunoRepository;
@@ -53,34 +54,41 @@ class AcademiaApplicationTests {
 
     @Test
     @Transactional
+    @Rollback(false)
     void testarFluxoCompletoEPersistenciaRelacionamentos() {
-        // 1. Criar e salvar um Plano (usando nomePlano e preco do Diagrama)
+        // --- 1. CONTAGENS INICIAIS (Antes de salvar) ---
+        long qtdPlanosAntes = planoRepository.count();
+        long qtdInstrutoresAntes = instrutorRepository.count();
+        long qtdTiposAntes = tipoExercicioRepository.count();
+        long qtdTreinosAntes = treinoRepository.count();
+        long qtdAlunosAntes = alunoRepository.count();
+
+        // --- 2. CRIAÇÃO E PERSISTÊNCIA DOS OBJETOS ---
+
+        // Plano
         Plano plano = new Plano("Plano Mensal VIP", 120.0, "Musculação");
         plano = planoRepository.save(plano);
 
-        // 2. Criar e salvar um Instrutor (usando o construtor completo de Instrutor + Pessoa)
+        // Instrutor
         Instrutor instrutor = new Instrutor(
             "Carlos Silva", "111.222.333-44", "carlos@fit.com", "87988887777",
             "CREF-12345", "Musculação", 2500.0
         );
         instrutor = instrutorRepository.save(instrutor);
 
-        // 3. Criar e salvar TipoExercicio (O exercício será salvo em cascata pelo Treino)
+        // TipoExercicio e Exercicio
         TipoExercicio tipoPeito = new TipoExercicio("Musculação - Peitoral", "Peito");
         tipoPeito = tipoExercicioRepository.save(tipoPeito);
 
         Exercicio supino = new Exercicio(4, 12, 30.0, 60, tipoPeito);
-        // *Removido o exercicioRepository.save(supino)* pois o CascadeType.PERSIST do Treino fará isso.
 
-        // 4. Criar e salvar um Treino montado pelo Instrutor
+        // Treino com Exercicio em Cascata
         Treino treinoA = new Treino("Treino A - Peito e Tríceps", LocalDate.now(), LocalDate.now().plusMonths(3), true);
         treinoA.setInstrutor(instrutor);
         treinoA.adicionarExercicio(supino);
-
-        // Salva o treino e persiste o exercício em cascata
         treinoA = treinoRepository.save(treinoA);
 
-        // 5. Criar e salvar um Aluno vinculado ao Plano e ao Treino
+        // Aluno com Plano, Treino e Pagamento
         Aluno aluno = new Aluno(
             "José Breno", "123.456.789-00", "breno@email.com", "87999999999", 
             "20261001", LocalDate.now(), "Ativa"
@@ -88,23 +96,32 @@ class AcademiaApplicationTests {
         aluno.vincularPlano(plano);
         aluno.adicionarTreino(treinoA);
 
-        // 6. Criar e adicionar um Pagamento ao Aluno
         Pagamento pagamento = new Pagamento(LocalDate.now(), 120.0, LocalDate.now().plusMonths(1), "PAGO");
         aluno.adicionarPagamento(pagamento);
 
-        // Salva o Aluno no banco
+        // Salva o Aluno
         Aluno alunoSalvo = alunoRepository.save(aluno);
 
-        // --- VALIDAÇÕES DE PERSISTÊNCIA ---
-        
-        // Verifica se o Aluno foi salvo com ID gerado
+        // --- 3. CONTAGENS FINAIS (Depois de salvar) ---
+        long qtdPlanosDepois = planoRepository.count();
+        long qtdInstrutoresDepois = instrutorRepository.count();
+        long qtdTiposDepois = tipoExercicioRepository.count();
+        long qtdTreinosDepois = treinoRepository.count();
+        long qtdAlunosDepois = alunoRepository.count();
+
+        // --- 4. VERIFICAÇÕES DE INCREMENTO (Estilo do Professor) ---
+        assertEquals(qtdPlanosAntes + 1, qtdPlanosDepois);
+        assertEquals(qtdInstrutoresAntes + 1, qtdInstrutoresDepois);
+        assertEquals(qtdTiposAntes + 1, qtdTiposDepois);
+        assertEquals(qtdTreinosAntes + 1, qtdTreinosDepois);
+        assertEquals(qtdAlunosAntes + 1, qtdAlunosDepois);
+
+        // --- 5. VALIDAÇÕES DE RECUPERAÇÃO E RELACIONAMENTOS ---
         assertNotNull(alunoSalvo.getId());
 
-        // Busca o Aluno salvo no banco de dados para garantir recuperação
         Optional<Aluno> alunoBuscado = alunoRepository.findById(alunoSalvo.getId());
         assertTrue(alunoBuscado.isPresent());
 
-        // Valida se os relacionamentos persistem corretamente
         Aluno a = alunoBuscado.get();
         assertEquals("Plano Mensal VIP", a.getPlano().getNomePlano());
         assertEquals(1, a.getListaTreinos().size());
