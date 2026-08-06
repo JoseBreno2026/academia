@@ -1,7 +1,7 @@
 package br.edu.ufape.poo.academia.negocio.cadastro;
 
-public class InstrutorNaoEncontradoException extends Exception{
-	private static final long serialVersionUID = 1L;
+public class InstrutorNaoEncontradoException extends Exception {
+    private static final long serialVersionUID = 1L;
     private String cpf;
 
     public InstrutorNaoEncontradoException(String cpf) {

@@ -15,7 +15,6 @@ public class CadastroInstrutor implements InterfaceCadastroInstrutor {
 
     @Override
     public Instrutor salvarInstrutor(Instrutor instrutor) {
-        // Se houver regra de duplicidade, adicione aqui como no Aluno.
         return instrutorRepository.save(instrutor);
     }
 
