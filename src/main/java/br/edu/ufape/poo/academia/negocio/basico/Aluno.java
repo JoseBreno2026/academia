@@ -26,7 +26,7 @@ public class Aluno extends Pessoa {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pagamento> listaPagamentos = new ArrayList<>();	
 
-    // Construtor vazio (ALTERADO PARA PUBLIC)
+    // Construtor vazio
     protected Aluno() {
         super();
     }
