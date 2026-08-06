@@ -36,4 +36,4 @@ public class CadastroInstrutor implements InterfaceCadastroInstrutor {
     public void removerInstrutor(Long id) {
         instrutorRepository.deleteById(id);
     }
-}
+} 
