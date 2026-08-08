@@ -26,4 +26,8 @@ public interface InterfaceFachada {
     boolean verificarExistenciaTipoExercicioId(Long id);
     TipoExercicio buscarTipoExercicioPorId(Long id) throws TipoExercicioNaoEncontradoException;
     void deletarTipoExercicioPorId(Long id) throws TipoExercicioNaoEncontradoException;
+
+ // Métodos compostos (regras de negócio que cruzam cadastros)
+    void adicionarExercicioAoTreino(Long treinoId, Long exercicioId) throws TreinoNaoEncontradoException, ExercicioNaoEncontradoException;
+    void associarInstrutorAoTreino(Long treinoId, String instrutorCpf) throws TreinoNaoEncontradoException, InstrutorNaoEncontradoException;
 }

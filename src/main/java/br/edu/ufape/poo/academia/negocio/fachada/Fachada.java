@@ -18,6 +18,9 @@ public class Fachada implements InterfaceFachada {
     @Autowired
     private InterfaceCadastroTipoExercicio cadastroTipoExercicio;
 
+    @Autowired
+    private InterfaceCadastroInstrutor cadastroInstrutor;
+
     // ================= TREINO =================
     @Override
     public Treino salvarTreino(Treino entity) {
@@ -94,5 +97,26 @@ public class Fachada implements InterfaceFachada {
     @Override
     public void deletarTipoExercicioPorId(Long id) throws TipoExercicioNaoEncontradoException {
         cadastroTipoExercicio.deletarTipoExercicioPorId(id);
+    }
+
+    // ================= REGRAS COMPOSTAS =================
+    @Override
+    public void adicionarExercicioAoTreino(Long treinoId, Long exercicioId) 
+            throws TreinoNaoEncontradoException, ExercicioNaoEncontradoException {
+        Treino treino = cadastroTreino.buscarTreinoPorId(treinoId);
+        Exercicio exercicio = cadastroExercicio.buscarExercicioPorId(exercicioId);
+        
+        treino.adicionarExercicio(exercicio);
+        cadastroTreino.salvarTreino(treino);
+    }
+
+    @Override
+    public void associarInstrutorAoTreino(Long treinoId, String instrutorCpf) 
+            throws TreinoNaoEncontradoException, InstrutorNaoEncontradoException {
+        Treino treino = cadastroTreino.buscarTreinoPorId(treinoId);
+        Instrutor instrutor = cadastroInstrutor.procurarInstrutorPorCpf(instrutorCpf);
+        
+        treino.setInstrutor(instrutor);
+        cadastroTreino.salvarTreino(treino);
     }
 }
