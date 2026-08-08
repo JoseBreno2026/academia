@@ -7,7 +7,7 @@ import br.edu.ufape.poo.academia.dados.ExercicioRepository;
 import br.edu.ufape.poo.academia.negocio.basico.Exercicio;
 
 @Service
-public class CadastroExercicio {
+public class CadastroExercicio implements InterfaceCadastroExercicio {
 
     @Autowired
     private ExercicioRepository colecaoExercicio;

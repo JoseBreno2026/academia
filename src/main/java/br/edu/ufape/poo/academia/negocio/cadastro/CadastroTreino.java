@@ -7,7 +7,7 @@ import br.edu.ufape.poo.academia.dados.TreinoRepository;
 import br.edu.ufape.poo.academia.negocio.basico.Treino;
 
 @Service
-public class CadastroTreino {
+public class CadastroTreino implements InterfaceCadastroTreino {
 
     @Autowired
     private TreinoRepository colecaoTreino;
