@@ -21,6 +21,15 @@ public class Fachada implements InterfaceFachada {
     @Autowired
     private InterfaceCadastroInstrutor cadastroInstrutor;
 
+    @Autowired
+    private InterfaceCadastroAluno cadastroAluno;
+
+    @Autowired
+    private InterfaceCadastroPlano cadastroPlano;
+
+    @Autowired
+    private InterfaceCadastroPagamento cadastroPagamento;
+
     // ================= TREINO =================
     @Override
     public Treino salvarTreino(Treino entity) {
@@ -97,6 +106,100 @@ public class Fachada implements InterfaceFachada {
     @Override
     public void deletarTipoExercicioPorId(Long id) throws TipoExercicioNaoEncontradoException {
         cadastroTipoExercicio.deletarTipoExercicioPorId(id);
+    }
+
+    // ================= ALUNO =================
+    @Override
+    public Aluno salvarAluno(Aluno entity) throws AlunoDuplicadoException {
+        return cadastroAluno.salvarAluno(entity);
+    }
+
+    @Override
+    public List<Aluno> listarAlunos() {
+        return cadastroAluno.listarAlunos();
+    }
+
+    @Override
+    public Aluno procurarAlunoPorCpf(String cpf) throws AlunoNaoEncontradoException {
+        return cadastroAluno.procurarAlunoPorCpf(cpf);
+    }
+
+    @Override
+    public void removerAluno(Long id) throws AlunoNaoEncontradoException {
+        cadastroAluno.removerAluno(id);
+    }
+
+    // ================= INSTRUTOR =================
+    @Override
+    public Instrutor salvarInstrutor(Instrutor entity) {
+        return cadastroInstrutor.salvarInstrutor(entity);
+    }
+
+    @Override
+    public List<Instrutor> listarInstrutores() {
+        return cadastroInstrutor.listarInstrutores();
+    }
+
+    @Override
+    public Instrutor procurarInstrutorPorCpf(String cpf) throws InstrutorNaoEncontradoException {
+        return cadastroInstrutor.procurarInstrutorPorCpf(cpf);
+    }
+
+    @Override
+    public void removerInstrutor(Long id) throws InstrutorNaoEncontradoException {
+        cadastroInstrutor.removerInstrutor(id);
+    }
+
+    // ================= PLANO (Lennarth) =================
+    @Override
+    public Plano salvarPlano(Plano entity) {
+        return cadastroPlano.salvarPlano(entity);
+    }
+
+    @Override
+    public List<Plano> listarPlanos() {
+        return cadastroPlano.listarPlanos();
+    }
+
+    @Override
+    public boolean verificarExistenciaPlanoId(Long id) {
+        return cadastroPlano.verificarExistenciaPlanoId(id);
+    }
+
+    @Override
+    public Plano buscarPlanoPorId(Long id) throws PlanoNaoEncontradoException {
+        return cadastroPlano.buscarPlanoPorId(id);
+    }
+
+    @Override
+    public void deletarPlanoPorId(Long id) throws PlanoNaoEncontradoException {
+        cadastroPlano.deletarPlanoPorId(id);
+    }
+
+    // ================= PAGAMENTO (Lennarth) =================
+    @Override
+    public Pagamento salvarPagamento(Pagamento entity) throws PagamentoInvalidoException {
+        return cadastroPagamento.salvarPagamento(entity);
+    }
+
+    @Override
+    public List<Pagamento> listarPagamentos() {
+        return cadastroPagamento.listarPagamentos();
+    }
+
+    @Override
+    public boolean verificarExistenciaPagamentoId(Long id) {
+        return cadastroPagamento.verificarExistenciaPagamentoId(id);
+    }
+
+    @Override
+    public Pagamento buscarPagamentoPorId(Long id) throws PagamentoInvalidoException {
+        return cadastroPagamento.buscarPagamentoPorId(id);
+    }
+
+    @Override
+    public void deletarPagamentoPorId(Long id) throws PagamentoInvalidoException {
+        cadastroPagamento.deletarPagamentoPorId(id);
     }
 
     // ================= REGRAS COMPOSTAS =================
