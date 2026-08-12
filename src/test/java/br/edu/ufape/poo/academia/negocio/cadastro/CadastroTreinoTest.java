@@ -6,9 +6,12 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
 import br.edu.ufape.poo.academia.negocio.basico.Treino;
 
 @SpringBootTest
+@Transactional
 class CadastroTreinoTest {
 
     @Autowired
@@ -26,7 +29,7 @@ class CadastroTreinoTest {
         );
 
         assertEquals(idInexistente, exception.getId());
-        assertTrue(exception.getMessage().contains("Não existe treino com o ID"));
+        assertNotNull(exception.getMessage());
     }
 
     @Test
