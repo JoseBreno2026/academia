@@ -71,19 +71,26 @@ public class ExercicioController {
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizar(@PathVariable Long id, @Valid @RequestBody ExercicioDTORequest dto) {
         try {
-            // Busca o exercício existente (lança ExercicioNaoEncontradoException se não existir)
-            fachada.buscarExercicioPorId(id);
+            // 1. Busca o exercício já existente no banco
+            Exercicio existente = fachada.buscarExercicioPorId(id);
 
-            Exercicio entity = conversor.convertToEntity(dto);
-            entity.setId(id);
+            // 2. Atualiza os campos do objeto existente com os dados do DTO
+            existente.setNome(dto.nome());
+            existente.setSeries(dto.series());
+            existente.setRepeticoes(dto.repeticoes());
+            existente.setCarga(dto.carga());
+            existente.setDescansoSegundos(dto.descansoSegundos());
 
+            // 3. Atualiza a associação se necessário
             if (dto.tipoExercicioId() != null) {
                 TipoExercicio tipo = fachada.buscarTipoExercicioPorId(dto.tipoExercicioId());
-                entity.setTipoExercicio(tipo);
+                existente.setTipoExercicio(tipo);
             }
 
-            Exercicio atualizada = fachada.salvarExercicio(entity);
+            // 4. Salva a entidade existente atualizada
+            Exercicio atualizada = fachada.salvarExercicio(existente);
             return ResponseEntity.ok(conversor.convertToResponse(atualizada));
+
         } catch (ExercicioNaoEncontradoException | TipoExercicioNaoEncontradoException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
