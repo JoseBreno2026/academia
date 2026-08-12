@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record TreinoDTORequest(
-    @NotBlank(message = "O nome do treino é obrigatório")
+	@NotBlank(message = "O nome do treino é obrigatório")
     String nomeTreino,
 
     LocalDate dataFim,

@@ -19,7 +19,7 @@ import br.edu.ufape.poo.academia.comunicacao.dto.request.TipoExercicioDTORequest
 import br.edu.ufape.poo.academia.comunicacao.dto.response.TipoExercicioDTOResponse;
 import br.edu.ufape.poo.academia.negocio.basico.TipoExercicio;
 import br.edu.ufape.poo.academia.negocio.cadastro.TipoExercicioNaoEncontradoException;
-import br.edu.ufape.poo.academia.negocio.fachada.Fachada;
+import br.edu.ufape.poo.academia.negocio.fachada.InterfaceFachada;
 import jakarta.validation.Valid;
 
 @RestController
@@ -27,7 +27,7 @@ import jakarta.validation.Valid;
 public class TipoExercicioController {
 
     @Autowired
-    private Fachada fachada;
+    private InterfaceFachada fachada;
 
     @Autowired
     private TipoExercicioConversor conversor;
@@ -49,23 +49,35 @@ public class TipoExercicioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TipoExercicioDTOResponse> buscarPorId(@PathVariable Long id) throws TipoExercicioNaoEncontradoException {
-        TipoExercicio entity = fachada.buscarTipoExercicioPorId(id);
-        return ResponseEntity.ok(conversor.convertToResponse(entity));
+    public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
+        try {
+            TipoExercicio entity = fachada.buscarTipoExercicioPorId(id);
+            return ResponseEntity.ok(conversor.convertToResponse(entity));
+        } catch (TipoExercicioNaoEncontradoException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TipoExercicioDTOResponse> atualizar(@PathVariable Long id, @Valid @RequestBody TipoExercicioDTORequest dto) throws TipoExercicioNaoEncontradoException {
-        fachada.buscarTipoExercicioPorId(id); // Garante que existe antes de atualizar
-        TipoExercicio entity = conversor.convertToEntity(dto);
-        entity.setId(id);
-        TipoExercicio atualizada = fachada.salvarTipoExercicio(entity);
-        return ResponseEntity.ok(conversor.convertToResponse(atualizada));
+    public ResponseEntity<?> atualizar(@PathVariable Long id, @Valid @RequestBody TipoExercicioDTORequest dto) {
+        try {
+            fachada.buscarTipoExercicioPorId(id);
+            TipoExercicio entity = conversor.convertToEntity(dto);
+            entity.setId(id);
+            TipoExercicio atualizada = fachada.salvarTipoExercicio(entity);
+            return ResponseEntity.ok(conversor.convertToResponse(atualizada));
+        } catch (TipoExercicioNaoEncontradoException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) throws TipoExercicioNaoEncontradoException {
-        fachada.deletarTipoExercicioPorId(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> deletar(@PathVariable Long id) {
+        try {
+            fachada.deletarTipoExercicioPorId(id);
+            return ResponseEntity.noContent().build();
+        } catch (TipoExercicioNaoEncontradoException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 }

@@ -20,7 +20,7 @@ import br.edu.ufape.poo.academia.comunicacao.dto.response.TreinoDTOResponse;
 import br.edu.ufape.poo.academia.negocio.basico.Treino;
 import br.edu.ufape.poo.academia.negocio.cadastro.ExercicioNaoEncontradoException;
 import br.edu.ufape.poo.academia.negocio.cadastro.TreinoNaoEncontradoException;
-import br.edu.ufape.poo.academia.negocio.fachada.Fachada;
+import br.edu.ufape.poo.academia.negocio.fachada.InterfaceFachada;
 import jakarta.validation.Valid;
 
 @RestController
@@ -28,25 +28,28 @@ import jakarta.validation.Valid;
 public class TreinoController {
 
     @Autowired
-    private Fachada fachada;
+    private InterfaceFachada fachada;
 
     @Autowired
     private TreinoConversor conversor;
 
     @PostMapping
-    public ResponseEntity<TreinoDTOResponse> cadastrar(@Valid @RequestBody TreinoDTORequest dto) throws TreinoNaoEncontradoException, ExercicioNaoEncontradoException {
-        Treino entity = conversor.convertToEntity(dto);
-        Treino salva = fachada.salvarTreino(entity);
+    public ResponseEntity<?> cadastrar(@Valid @RequestBody TreinoDTORequest dto) {
+        try {
+            Treino entity = conversor.convertToEntity(dto);
+            Treino salva = fachada.salvarTreino(entity);
 
-        // Vincula a lista de exercícios se fornecida
-        if (dto.exerciciosIds() != null) {
-            for (Long exId : dto.exerciciosIds()) {
-                fachada.adicionarExercicioAoTreino(salva.getId(), exId);
+            if (dto.exerciciosIds() != null) {
+                for (Long exId : dto.exerciciosIds()) {
+                    fachada.adicionarExercicioAoTreino(salva.getId(), exId);
+                }
             }
-        }
 
-        Treino treinoAtualizado = fachada.buscarTreinoPorId(salva.getId());
-        return ResponseEntity.status(HttpStatus.CREATED).body(conversor.convertToResponse(treinoAtualizado));
+            Treino treinoAtualizado = fachada.buscarTreinoPorId(salva.getId());
+            return ResponseEntity.status(HttpStatus.CREATED).body(conversor.convertToResponse(treinoAtualizado));
+        } catch (TreinoNaoEncontradoException | ExercicioNaoEncontradoException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @GetMapping
@@ -59,31 +62,43 @@ public class TreinoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TreinoDTOResponse> buscarPorId(@PathVariable Long id) throws TreinoNaoEncontradoException {
-        Treino entity = fachada.buscarTreinoPorId(id);
-        return ResponseEntity.ok(conversor.convertToResponse(entity));
+    public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
+        try {
+            Treino entity = fachada.buscarTreinoPorId(id);
+            return ResponseEntity.ok(conversor.convertToResponse(entity));
+        } catch (TreinoNaoEncontradoException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TreinoDTOResponse> atualizar(@PathVariable Long id, @Valid @RequestBody TreinoDTORequest dto) throws TreinoNaoEncontradoException, ExercicioNaoEncontradoException {
-        fachada.buscarTreinoPorId(id); // Garante existência
-        Treino entity = conversor.convertToEntity(dto);
-        entity.setId(id);
-        Treino salva = fachada.salvarTreino(entity);
+    public ResponseEntity<?> atualizar(@PathVariable Long id, @Valid @RequestBody TreinoDTORequest dto) {
+        try {
+            fachada.buscarTreinoPorId(id);
+            Treino entity = conversor.convertToEntity(dto);
+            entity.setId(id);
+            Treino salva = fachada.salvarTreino(entity);
 
-        if (dto.exerciciosIds() != null) {
-            for (Long exId : dto.exerciciosIds()) {
-                fachada.adicionarExercicioAoTreino(salva.getId(), exId);
+            if (dto.exerciciosIds() != null) {
+                for (Long exId : dto.exerciciosIds()) {
+                    fachada.adicionarExercicioAoTreino(salva.getId(), exId);
+                }
             }
-        }
 
-        Treino treinoAtualizado = fachada.buscarTreinoPorId(salva.getId());
-        return ResponseEntity.ok(conversor.convertToResponse(treinoAtualizado));
+            Treino treinoAtualizado = fachada.buscarTreinoPorId(salva.getId());
+            return ResponseEntity.ok(conversor.convertToResponse(treinoAtualizado));
+        } catch (TreinoNaoEncontradoException | ExercicioNaoEncontradoException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) throws TreinoNaoEncontradoException {
-        fachada.deletarTreinoPorId(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> deletar(@PathVariable Long id) {
+        try {
+            fachada.deletarTreinoPorId(id);
+            return ResponseEntity.noContent().build();
+        } catch (TreinoNaoEncontradoException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 }
