@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 
@@ -14,6 +16,7 @@ public class Instrutor extends Pessoa {
     private String especialidade;
     private double salario;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "instrutor")
     private List<Treino> listaTreinos = new ArrayList<>();
 

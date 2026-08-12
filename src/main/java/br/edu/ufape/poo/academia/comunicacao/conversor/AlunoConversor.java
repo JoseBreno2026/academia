@@ -34,4 +34,14 @@ public class AlunoConversor {
             aluno.getStatusMatricula()
         );
     }
+    
+    public void updateEntityFromRequest(AlunoDTORequest request, Aluno aluno) {
+        aluno.setNome(request.nome());
+        aluno.setCpf(request.cpf());
+        aluno.setEmail(request.email());
+        aluno.setTelefone(request.telefone());
+        aluno.setMatricula(request.matricula());
+        aluno.setDataMatricula(request.dataMatricula());
+        aluno.setStatusMatricula(request.statusMatricula());
+    }
 }

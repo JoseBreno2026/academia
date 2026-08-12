@@ -125,6 +125,11 @@ public class Fachada implements InterfaceFachada {
     }
 
     @Override
+    public Aluno procurarAlunoPorId(Long id) throws AlunoNaoEncontradoException {
+        return cadastroAluno.procurarAlunoPorId(id);
+    }
+
+    @Override
     public void removerAluno(Long id) throws AlunoNaoEncontradoException {
         cadastroAluno.removerAluno(id);
     }
@@ -146,11 +151,16 @@ public class Fachada implements InterfaceFachada {
     }
 
     @Override
+    public Instrutor procurarInstrutorPorId(Long id) throws InstrutorNaoEncontradoException {
+        return cadastroInstrutor.procurarInstrutorPorId(id);
+    }
+
+    @Override
     public void removerInstrutor(Long id) throws InstrutorNaoEncontradoException {
         cadastroInstrutor.removerInstrutor(id);
     }
 
-    // ================= PLANO (Lennarth) =================
+    // ================= PLANO =================
     @Override
     public Plano salvarPlano(Plano entity) {
         return cadastroPlano.salvarPlano(entity);
@@ -176,7 +186,7 @@ public class Fachada implements InterfaceFachada {
         cadastroPlano.deletarPlanoPorId(id);
     }
 
-    // ================= PAGAMENTO (Lennarth) =================
+    // ================= PAGAMENTO =================
     @Override
     public Pagamento salvarPagamento(Pagamento entity) throws PagamentoInvalidoException {
         return cadastroPagamento.salvarPagamento(entity);

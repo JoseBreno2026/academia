@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +46,19 @@ public class AlunoController {
         }
     }
 
+    @GetMapping("/id/{id}")
+    public ResponseEntity<?> buscarAlunoPorId(@PathVariable Long id) {
+        try {
+            Aluno a = fachada.procurarAlunoPorId(id);
+            AlunoDTOResponse saida = conversor.entityToResponse(a);
+            return ResponseEntity.ok(saida);
+        } catch (AlunoNaoEncontradoException e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
+        }
+    }
+
     @GetMapping("/")
     public List<AlunoDTOResponse> listarAlunos() {
         return fachada.listarAlunos()
@@ -63,6 +77,20 @@ public class AlunoController {
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
                     .body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> atualizarAluno(@PathVariable Long id, @RequestBody @Valid AlunoDTORequest alunoRequest) {
+        try {
+            Aluno existente = fachada.procurarAlunoPorId(id);
+            conversor.updateEntityFromRequest(alunoRequest, existente);
+            Aluno atualizado = fachada.salvarAluno(existente);
+            return ResponseEntity.ok(conversor.entityToResponse(atualizado));
+        } catch (AlunoNaoEncontradoException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (AlunoDuplicadoException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
     }
 

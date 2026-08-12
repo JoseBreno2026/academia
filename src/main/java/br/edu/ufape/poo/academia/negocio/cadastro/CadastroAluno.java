@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.edu.ufape.poo.academia.dados.AlunoRepository;
 import br.edu.ufape.poo.academia.negocio.basico.Aluno;
-import br.edu.ufape.poo.academia.negocio.cadastro.AlunoDuplicadoException;
-import br.edu.ufape.poo.academia.negocio.cadastro.AlunoNaoEncontradoException;
 
 @Service
 public class CadastroAluno implements InterfaceCadastroAluno {
@@ -16,7 +14,7 @@ public class CadastroAluno implements InterfaceCadastroAluno {
 
     @Override
     public Aluno salvarAluno(Aluno aluno) throws AlunoDuplicadoException {
-        if (alunoRepository.existsByCpf(aluno.getCpf())) {
+        if (aluno.getId() == null && alunoRepository.existsByCpf(aluno.getCpf())) {
             throw new AlunoDuplicadoException(aluno.getCpf());
         }
         return alunoRepository.save(aluno);
@@ -32,12 +30,21 @@ public class CadastroAluno implements InterfaceCadastroAluno {
     }
 
     @Override
+    public Aluno procurarAlunoPorId(Long id) throws AlunoNaoEncontradoException {
+        return alunoRepository.findById(id)
+                .orElseThrow(() -> new AlunoNaoEncontradoException(id.toString()));
+    }
+
+    @Override
     public List<Aluno> listarAlunos() {
         return alunoRepository.findAll();
     }
-    
+
     @Override
-    public void removerAluno(Long id) {
+    public void removerAluno(Long id) throws AlunoNaoEncontradoException {
+        if (!alunoRepository.existsById(id)) {
+            throw new AlunoNaoEncontradoException(id.toString());
+        }
         alunoRepository.deleteById(id);
     }
 }

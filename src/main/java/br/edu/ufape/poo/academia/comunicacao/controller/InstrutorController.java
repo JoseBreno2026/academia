@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,13 +64,40 @@ public class InstrutorController {
     public ResponseEntity<?> removerInstrutor(@PathVariable Long id) {
         try {
             fachada.removerInstrutor(id);
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body("Instrutor removido com sucesso");
+            return ResponseEntity.status(HttpStatus.OK).body("Instrutor removido com sucesso");
         } catch (InstrutorNaoEncontradoException e) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("Não é possível remover o instrutor pois ele possui treinos associados.");
+        }
+    }
+    
+    @GetMapping("/id/{id}")
+    public ResponseEntity<?> buscarInstrutorPorId(@PathVariable Long id) {
+        try {
+            Instrutor instrutor = fachada.procurarInstrutorPorId(id);
+            return ResponseEntity.ok(instrutor);
+        } catch (InstrutorNaoEncontradoException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<?> atualizarInstrutor(@PathVariable Long id, @RequestBody @Valid Instrutor instrutorRequest) {
+        try {
+            Instrutor existente = fachada.procurarInstrutorPorId(id);
+            existente.setNome(instrutorRequest.getNome());
+            existente.setCpf(instrutorRequest.getCpf());
+            existente.setEmail(instrutorRequest.getEmail());
+            existente.setTelefone(instrutorRequest.getTelefone());
+            existente.setEspecialidade(instrutorRequest.getEspecialidade());
+            existente.setCref(instrutorRequest.getCref());
+            
+            Instrutor atualizado = fachada.salvarInstrutor(existente);
+            return ResponseEntity.ok(atualizado);
+        } catch (InstrutorNaoEncontradoException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 }
