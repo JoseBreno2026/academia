@@ -1,9 +1,14 @@
 package br.edu.ufape.poo.academia.negocio.cadastro;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import br.edu.ufape.poo.academia.dados.AlunoRepository;
 import br.edu.ufape.poo.academia.dados.PagamentoRepository;
+import br.edu.ufape.poo.academia.negocio.basico.Aluno;
 import br.edu.ufape.poo.academia.negocio.basico.Pagamento;
 
 @Service
@@ -11,6 +16,9 @@ public class CadastroPagamento implements InterfaceCadastroPagamento {
 
     @Autowired
     private PagamentoRepository colecaoPagamento;
+
+    @Autowired
+    private AlunoRepository alunoRepository;
 
     @Override
     public Pagamento salvarPagamento(Pagamento entity) throws PagamentoInvalidoException {
@@ -37,10 +45,20 @@ public class CadastroPagamento implements InterfaceCadastroPagamento {
     }
 
     @Override
+    @Transactional
     public void deletarPagamentoPorId(Long id) throws PagamentoInvalidoException {
-        if (!colecaoPagamento.existsById(id)) {
-            throw new PagamentoInvalidoException("Não é possível deletar. Pagamento inexistente!");
+        Pagamento pagamento = colecaoPagamento.findById(id)
+                .orElseThrow(() -> new PagamentoInvalidoException("Não é possível deletar. Pagamento inexistente!"));
+
+        // Busca todos os alunos e desvincula o pagamento da lista do aluno se existir
+        List<Aluno> alunos = alunoRepository.findAll();
+        for (Aluno aluno : alunos) {
+            if (aluno.getListaPagamentos() != null && aluno.getListaPagamentos().contains(pagamento)) {
+                aluno.getListaPagamentos().remove(pagamento);
+                alunoRepository.save(aluno);
+            }
         }
-        colecaoPagamento.deleteById(id);
+
+        colecaoPagamento.delete(pagamento);
     }
 }
