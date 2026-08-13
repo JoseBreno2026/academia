@@ -3,6 +3,7 @@ package br.edu.ufape.poo.academia.comunicacao.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,16 +35,16 @@ public class TipoExercicioController {
 
     @PostMapping
     public ResponseEntity<TipoExercicioDTOResponse> cadastrar(@Valid @RequestBody TipoExercicioDTORequest dto) {
-        TipoExercicio entity = conversor.convertToEntity(dto);
+        TipoExercicio entity = conversor.requestToEntity(dto);
         TipoExercicio salva = fachada.salvarTipoExercicio(entity);
-        return ResponseEntity.status(HttpStatus.CREATED).body(conversor.convertToResponse(salva));
+        return ResponseEntity.status(HttpStatus.CREATED).body(conversor.entityToResponse(salva));
     }
 
     @GetMapping
     public ResponseEntity<List<TipoExercicioDTOResponse>> listarTodos() {
         List<TipoExercicio> lista = fachada.listarTiposExercicio();
         List<TipoExercicioDTOResponse> response = lista.stream()
-                .map(conversor::convertToResponse)
+                .map(conversor::entityToResponse)
                 .toList();
         return ResponseEntity.ok(response);
     }
@@ -52,7 +53,7 @@ public class TipoExercicioController {
     public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
         try {
             TipoExercicio entity = fachada.buscarTipoExercicioPorId(id);
-            return ResponseEntity.ok(conversor.convertToResponse(entity));
+            return ResponseEntity.ok(conversor.entityToResponse(entity));
         } catch (TipoExercicioNaoEncontradoException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
@@ -62,10 +63,10 @@ public class TipoExercicioController {
     public ResponseEntity<?> atualizar(@PathVariable Long id, @Valid @RequestBody TipoExercicioDTORequest dto) {
         try {
             fachada.buscarTipoExercicioPorId(id);
-            TipoExercicio entity = conversor.convertToEntity(dto);
+            TipoExercicio entity = conversor.requestToEntity(dto);
             entity.setId(id);
-            TipoExercicio atualizada = fachada.salvarTipoExercicio(entity);
-            return ResponseEntity.ok(conversor.convertToResponse(atualizada));
+            TipoExercicio salva = fachada.salvarTipoExercicio(entity);
+            return ResponseEntity.ok(conversor.entityToResponse(salva));
         } catch (TipoExercicioNaoEncontradoException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
@@ -78,6 +79,8 @@ public class TipoExercicioController {
             return ResponseEntity.noContent().build();
         } catch (TipoExercicioNaoEncontradoException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Não é possível remover este tipo de exercício pois ele está associado a exercícios ativos.");
         }
     }
 }

@@ -1,13 +1,9 @@
 package br.edu.ufape.poo.academia.comunicacao.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public record ExercicioDTORequest(
-    @NotBlank(message = "O nome do exercício é obrigatório")
-    String nome,
-
     @NotNull(message = "O número de séries é obrigatório")
     @Positive(message = "O número de séries deve ser positivo")
     Integer series,

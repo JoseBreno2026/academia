@@ -17,7 +17,7 @@ public class TreinoConversor {
     @Autowired
     private ExercicioConversor exercicioConversor;
 
-    public Treino convertToEntity(TreinoDTORequest request) {
+    public Treino requestToEntity(TreinoDTORequest request) {
         Treino entity = new Treino();
         entity.setNomeTreino(request.nomeTreino());
         entity.setDataFim(request.dataFim());
@@ -27,7 +27,7 @@ public class TreinoConversor {
         return entity;
     }
 
-    public TreinoDTOResponse convertToResponse(Treino entity) {
+    public TreinoDTOResponse entityToResponse(Treino entity) {
         if (entity == null) {
             return null;
         }
@@ -35,8 +35,8 @@ public class TreinoConversor {
         List<ExercicioDTOResponse> exerciciosResponse = new ArrayList<>();
         if (entity.getListaExercicios() != null) {
             exerciciosResponse = entity.getListaExercicios().stream()
-                .map(exercicioConversor::convertToResponse)
-                .toList();
+                    .map(exercicioConversor::entityToResponse) // Ajustado aqui
+                    .toList();
         }
 
         return new TreinoDTOResponse(

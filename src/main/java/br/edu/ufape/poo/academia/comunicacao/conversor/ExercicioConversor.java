@@ -13,20 +13,16 @@ public class ExercicioConversor {
     @Autowired
     private TipoExercicioConversor tipoExercicioConversor;
 
-    public Exercicio convertToEntity(ExercicioDTORequest request) {
-        Exercicio entity = new Exercicio();
-        entity.setNome(request.nome());
-        entity.setSeries(request.series());
-        entity.setRepeticoes(request.repeticoes());
-        entity.setCarga(request.carga());
-        entity.setDescansoSegundos(request.descansoSegundos());
-        return entity;
+    public Exercicio requestToEntity(ExercicioDTORequest dto) {
+        Exercicio exercicio = new Exercicio();
+        exercicio.setSeries(dto.series());
+        exercicio.setRepeticoes(dto.repeticoes());
+        exercicio.setCarga(dto.carga());
+        exercicio.setDescansoSegundos(dto.descansoSegundos());
+        return exercicio;
     }
 
-    public ExercicioDTOResponse convertToResponse(Exercicio entity) {
-        if (entity == null) {
-            return null;
-        }
+    public ExercicioDTOResponse entityToResponse(Exercicio entity) {
         return new ExercicioDTOResponse(
             entity.getId(),
             entity.getNome(),
@@ -34,7 +30,7 @@ public class ExercicioConversor {
             entity.getRepeticoes(),
             entity.getCarga(),
             entity.getDescansoSegundos(),
-            tipoExercicioConversor.convertToResponse(entity.getTipoExercicio())
+            entity.getTipoExercicio() != null ? tipoExercicioConversor.entityToResponse(entity.getTipoExercicio()) : null
         );
     }
 }

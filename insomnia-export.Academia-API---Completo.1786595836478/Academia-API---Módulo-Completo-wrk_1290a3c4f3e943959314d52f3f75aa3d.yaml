@@ -1,0 +1,1224 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: Academia API - Módulo Completo
+meta:
+  id: wrk_1290a3c4f3e943959314d52f3f75aa3d
+  created: 1786594649915
+  modified: 1786594649915
+  description: ""
+collection:
+  - name: Módulo Alunos e Instrutores
+    meta:
+      id: fld_aa2cdc07c6e4456abd590e2241e7deee
+      created: 1786594684450
+      modified: 1786594786099
+      sortKey: -1786594684450
+      description: ""
+    children:
+      - name: Instrutor
+        meta:
+          id: fld_b7f97b72c58641e9be794931c34faf27
+          created: 1786594692140
+          modified: 1786594692140
+          sortKey: -1786594692140
+          description: ""
+        children:
+          - url: http://localhost:8081/instrutores/
+            name: Cadastrar Instrutor
+            meta:
+              id: req_da2e0478ea4347f19d18a86ae72da314
+              created: 1786569954788
+              modified: 1786595555758
+              isPrivate: false
+              description: ""
+              sortKey: -1786595555716
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nome": "Nome do Instrutor",
+                  "cpf": "12345678900",
+                  "email": "instrutor@email.com",
+                  "telefone": "81999999999",
+                  "especialidade": "Musculação",
+                  "cref": "123456-G/PE"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/instrutores/
+            name: Listar Todos os Instrutores
+            meta:
+              id: req_c4e107f261754ad28dc43c94021df578
+              created: 1786570034986
+              modified: 1786595565520
+              isPrivate: false
+              description: ""
+              sortKey: -1786595556016
+            method: GET
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nome": "Nome do Instrutor",
+                  "cpf": "12345678900",
+                  "email": "instrutor@email.com",
+                  "telefone": "81999999999",
+                  "especialidade": "Musculação",
+                  "cref": "123456-G/PE"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/instrutores/12345678900
+            name: Buscar Instrutor por CPF
+            meta:
+              id: req_30efd28ac70a4405b2ab4f397a01cee2
+              created: 1786570105157
+              modified: 1786595567947
+              isPrivate: false
+              description: ""
+              sortKey: -1786595556116
+            method: GET
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nome": "Nome do Instrutor",
+                  "cpf": "12345678900",
+                  "email": "instrutor@email.com",
+                  "telefone": "81999999999",
+                  "especialidade": "Musculação",
+                  "cref": "123456-G/PE"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/instrutores/id/6
+            name: Buscar Instrutor por ID
+            meta:
+              id: req_894b6eaae609414fb47fa690ad34af65
+              created: 1786570135215
+              modified: 1786595569624
+              isPrivate: false
+              description: ""
+              sortKey: -1786595556216
+            method: GET
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nome": "Nome do Instrutor",
+                  "cpf": "12345678900",
+                  "email": "instrutor@email.com",
+                  "telefone": "81999999999",
+                  "especialidade": "Musculação",
+                  "cref": "123456-G/PE"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/instrutores/6
+            name: Atualizar Instrutor
+            meta:
+              id: req_a00458e010dc4c7b8a09f447205afaad
+              created: 1786570650353
+              modified: 1786595562975
+              isPrivate: false
+              description: ""
+              sortKey: -1786595555916
+            method: PUT
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nome": "Nome do Instrutor",
+                  "cpf": "12345678900",
+                  "email": "instrutor@email.com",
+                  "telefone": "81999999999",
+                  "especialidade": "Musculação",
+                  "cref": "123456-G/PE"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/instrutores/6
+            name: Remover Instrutor
+            meta:
+              id: req_401e847c7e7447bc9d3a10d4a6019d06
+              created: 1786570781190
+              modified: 1786595558123
+              isPrivate: false
+              description: ""
+              sortKey: -1786595555816
+            method: DELETE
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nome": "Nome do Instrutor",
+                  "cpf": "12345678900",
+                  "email": "instrutor@email.com",
+                  "telefone": "81999999999",
+                  "especialidade": "Musculação",
+                  "cref": "123456-G/PE"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Aluno
+        meta:
+          id: fld_f97fbf53400c4f8f8971cc0435c05690
+          created: 1786594698107
+          modified: 1786594698107
+          sortKey: -1786594698107
+          description: ""
+        children:
+          - url: http://localhost:8081/alunos/
+            name: Cadastrar Aluno
+            meta:
+              id: req_e8654b916a94410fb1e8e395707431ed
+              created: 1786567476839
+              modified: 1786595531293
+              isPrivate: false
+              description: ""
+              sortKey: -1786595531247
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nome": "João Silva",
+                  "cpf": "123456789000",
+                  "email": "joao@email.com",
+                  "telefone": "87999998888",
+                  "matricula": "2026001",
+                  "dataMatricula": "2026-08-12",
+                  "statusMatricula": "ATIVO"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/alunos/
+            name: Listar Todos os Alunos
+            meta:
+              id: req_7ceb0edddf0b44bfa7c87c8195c87dd9
+              created: 1786567689960
+              modified: 1786595539210
+              isPrivate: false
+              description: ""
+              sortKey: -1786595531547
+            method: GET
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nome": "João Silva",
+                  "cpf": "12345678900",
+                  "email": "joao@email.com",
+                  "telefone": "87999998888",
+                  "matricula": "2026001",
+                  "dataMatricula": "2026-08-12",
+                  "statusMatricula": "ATIVO"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/alunos/12345678900
+            name: Buscar Aluno por CPF
+            meta:
+              id: req_09891d80cdc14064a4d77d72804cbdcb
+              created: 1786567751632
+              modified: 1786595541400
+              isPrivate: false
+              description: ""
+              sortKey: -1786595531647
+            method: GET
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nome": "João Silva",
+                  "cpf": "12345678900",
+                  "email": "joao@email.com",
+                  "telefone": "87999998888",
+                  "matricula": "2026001",
+                  "dataMatricula": "2026-08-12",
+                  "statusMatricula": "ATIVO"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/alunos/id/2
+            name: Buscar Aluno por ID
+            meta:
+              id: req_9d0cadb3a6ae4f2a910a659db6d38706
+              created: 1786569616852
+              modified: 1786595543841
+              isPrivate: false
+              description: ""
+              sortKey: -1786595531747
+            method: GET
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nome": "João Silva",
+                  "cpf": "12345678900",
+                  "email": "joao@email.com",
+                  "telefone": "87999998888",
+                  "matricula": "2026001",
+                  "dataMatricula": "2026-08-12",
+                  "statusMatricula": "ATIVO"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/alunos/2
+            name: Atualizar Aluno
+            meta:
+              id: req_594050976b1147baae6abbbdc2b134bd
+              created: 1786569679920
+              modified: 1786595536871
+              isPrivate: false
+              description: ""
+              sortKey: -1786595531447
+            method: PUT
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nome": "João Silva",
+                  "cpf": "123456789990",
+                  "email": "joao@email.com",
+                  "telefone": "87999998888",
+                  "matricula": "2026001",
+                  "dataMatricula": "2026-08-12",
+                  "statusMatricula": "ATIVO"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/alunos/9
+            name: Remover Aluno
+            meta:
+              id: req_df40f4f3f15e4e61beb5f89991006b20
+              created: 1786569792706
+              modified: 1786595534440
+              isPrivate: false
+              description: ""
+              sortKey: -1786595531347
+            method: DELETE
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nome": "João Silva",
+                  "cpf": "123456789000",
+                  "email": "joao@email.com",
+                  "telefone": "87999998888",
+                  "matricula": "2026001",
+                  "dataMatricula": "2026-08-12",
+                  "statusMatricula": "ATIVO"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+  - name: Módulo Financeiro
+    meta:
+      id: fld_b513845b784949e0b97f4024316c9bee
+      created: 1786594796840
+      modified: 1786594828118
+      sortKey: -1786594796840
+      description: ""
+    children:
+      - name: Pagamento
+        meta:
+          id: fld_2a353c753d694a69862ffb15309019ac
+          created: 1786594808697
+          modified: 1786594808697
+          sortKey: -1786594808697
+          description: ""
+        children:
+          - url: http://localhost:8081/api/pagamentos
+            name: Cadastrar Pagamento
+            meta:
+              id: req_58328549fb4f4c5a819e9f24e01a1a0d
+              created: 1786589237249
+              modified: 1786595635821
+              isPrivate: false
+              description: ""
+              sortKey: -1786595635780
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "dataPagamento": "2026-02-15",
+                  "valorPago": 120.0,
+                  "dataVencimento": "2026-03-15",
+                  "status": "PAGO"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/pagamentos
+            name: Listar todos os Pagamentos
+            meta:
+              id: req_e9fb7e6c4b594798bcda45f08969f86d
+              created: 1786589289774
+              modified: 1786595637614
+              isPrivate: false
+              description: ""
+              sortKey: -1786595635880
+            method: GET
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/pagamentos/1
+            name: Buscar Pagamento por ID
+            meta:
+              id: req_e4b83162063f4f299f17b5fd37fa920d
+              created: 1786589355570
+              modified: 1786595639250
+              isPrivate: false
+              description: ""
+              sortKey: -1786595635980
+            method: GET
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/pagamentos/3
+            name: "Atualizar Pagamento "
+            meta:
+              id: req_0997a239d4054633bdc1866185414d7d
+              created: 1786589393472
+              modified: 1786595641217
+              isPrivate: false
+              description: ""
+              sortKey: -1786595636080
+            method: PUT
+            body:
+              mimeType: application/json
+              text: |-
+                	{
+                		"dataPagamento": "2026-02-15",
+                		"valorPago": 120.0,
+                		"dataVencimento": "2026-03-15",
+                		"status": "PAGO"
+                	}
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/pagamentos/1
+            name: Deletar Pagamento
+            meta:
+              id: req_5c4ac90d0fb341ef93820e5701512988
+              created: 1786589435670
+              modified: 1786595643185
+              isPrivate: false
+              description: ""
+              sortKey: -1786595636180
+            method: DELETE
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Plano
+        meta:
+          id: fld_667fb21d7b72464cb54908cf18ec405c
+          created: 1786594823266
+          modified: 1786594823266
+          sortKey: -1786594823266
+          description: ""
+        children:
+          - url: http://localhost:8081/api/planos
+            name: Cadastrar Plano
+            meta:
+              id: req_d5399d2b443747648bcb7f7655ef7073
+              created: 1786587857632
+              modified: 1786595620642
+              isPrivate: false
+              description: ""
+              sortKey: -1786595620599
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nomePlano": "Plano Anual",
+                  "preco": 120.0,
+                  "modalidade": "Musculação"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/planos
+            name: Listar todos os Planos
+            meta:
+              id: req_12ff2e9e4231409bb14cba640829f77e
+              created: 1786588799937
+              modified: 1786595623173
+              isPrivate: false
+              description: ""
+              sortKey: -1786595620699
+            method: GET
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/planos/1
+            name: Buscar Plano por ID
+            meta:
+              id: req_8a38d86d9c934aa8a5fe0d09d3112e4e
+              created: 1786588867558
+              modified: 1786595625721
+              isPrivate: false
+              description: ""
+              sortKey: -1786595620799
+            method: GET
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/planos/1
+            name: Atualizar Plano
+            meta:
+              id: req_3af61f5d403d4277b7def1b38936b2a8
+              created: 1786588916390
+              modified: 1786595628375
+              isPrivate: false
+              description: ""
+              sortKey: -1786595620899
+            method: PUT
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nomePlano": "Plano Anual VIP",
+                  "preco": 150.0,
+                  "modalidade": "Musculação + Crossfit"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/planos/1
+            name: Deletar Plano
+            meta:
+              id: req_a8e047f24ec14cf48f976f347496cab8
+              created: 1786589140930
+              modified: 1786595630692
+              isPrivate: false
+              description: ""
+              sortKey: -1786595620999
+            method: DELETE
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+  - name: Módulo Treinos
+    meta:
+      id: fld_1ed4318320144a718ef9364e5041fa44
+      created: 1786594840959
+      modified: 1786594840959
+      sortKey: -1786594840959
+      description: ""
+    children:
+      - name: TipoExercicio
+        meta:
+          id: fld_996897361f564bb0bec4c36a6c3a9d15
+          created: 1786594852172
+          modified: 1786594852172
+          sortKey: -1786594852172
+          description: ""
+        children:
+          - url: http://localhost:8081/api/tipos-exercicios
+            name: Cadastrar TipoExercicio
+            meta:
+              id: req_1421334791cc4593891ad58d31680a67
+              created: 1786594977159
+              modified: 1786595024026
+              isPrivate: false
+              description: ""
+              sortKey: -1786595023938
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nome": "Supino Reto",
+                  "grupoMuscular": "Peito"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/tipos-exercicios
+            name: ERRO 400 - Cadastrar TipoExercicio
+            meta:
+              id: req_3e3b782ebf9a490aa6968ec25737dd27
+              created: 1786595037432
+              modified: 1786595040872
+              isPrivate: false
+              description: ""
+              sortKey: -1786595040810
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nome": "",
+                  "grupoMuscular": ""
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/tipos-exercicios
+            name: Listar Todos os TipoExercicio
+            meta:
+              id: req_ebcafc9bfff046b38d8534697f07b9ea
+              created: 1786595046016
+              modified: 1786595050987
+              isPrivate: false
+              description: ""
+              sortKey: -1786595050928
+            method: GET
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/tipos-exercicios/65
+            name: Buscar TipoExercicio por ID
+            meta:
+              id: req_38e8741785984b328c1be7bfed3a74ab
+              created: 1786595067629
+              modified: 1786595071411
+              isPrivate: false
+              description: ""
+              sortKey: -1786595051028
+            method: GET
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/tipos-exercicios/999
+            name: ERRO  404 - Buscar TipoExercicio por ID
+            meta:
+              id: req_32a09b1441ab464faa29c885f0680a06
+              created: 1786595081337
+              modified: 1786595084191
+              isPrivate: false
+              description: ""
+              sortKey: -1786595051128
+            method: GET
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/tipos-exercicios/65
+            name: Atualizar TipoExercicio
+            meta:
+              id: req_fc0ae2eee66f418f9b4a270dec714882
+              created: 1786595089073
+              modified: 1786595091720
+              isPrivate: false
+              description: ""
+              sortKey: -1786595091658
+            method: PUT
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nome": "Supino Reto com Barra",
+                  "grupoMuscular": "Peitoral Maior"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/tipos-exercicios/65
+            name: Deletar TipoExercicio
+            meta:
+              id: req_98de001c9600445ab204aea553bc6846
+              created: 1786595096104
+              modified: 1786595098505
+              isPrivate: false
+              description: ""
+              sortKey: -1786595098442
+            method: DELETE
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Exercicio
+        meta:
+          id: fld_a0eba75303b24b759390a127c4a44ee7
+          created: 1786594857982
+          modified: 1786594857982
+          sortKey: -1786594857982
+          description: ""
+        children:
+          - url: http://localhost:8081/api/exercicios
+            name: Cadastrar Exercicio
+            meta:
+              id: req_385aa3d4a8884f219ffe15018d2b0fcb
+              created: 1786595117367
+              modified: 1786595121678
+              isPrivate: false
+              description: ""
+              sortKey: -1786595121618
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "series": 4,
+                  "repeticoes": 12,
+                  "carga": 30.0,
+                  "descansoSegundos": 60,
+                  "tipoExercicioId": 66 
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/exercicios
+            name: ERRO 404 - Cadastrar Exercicio com TipoExercicio Inexistente
+            meta:
+              id: req_13b0b26055e44bbdb68b13077dee8e94
+              created: 1786595128071
+              modified: 1786595131000
+              isPrivate: false
+              description: ""
+              sortKey: -1786595130936
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "series": 3,
+                  "repeticoes": 10,
+                  "carga": 20.0,
+                  "descansoSegundos": 45,
+                  "tipoExercicioId": 999
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/exercicios
+            name: ERRO 400 - Cadastrar Exercicio com Dados Invalidos
+            meta:
+              id: req_41876596c41e476485031f853a83453b
+              created: 1786595136221
+              modified: 1786595138646
+              isPrivate: false
+              description: ""
+              sortKey: -1786595138588
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "series": -2,
+                  "repeticoes": 0,
+                  "carga": -10.0,
+                  "descansoSegundos": 0,
+                  "tipoExercicioId": null
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/exercicios
+            name: Listar Todos os Exercicios
+            meta:
+              id: req_2d87cf377a1b4ffeb726f18781993f02
+              created: 1786595142482
+              modified: 1786595145114
+              isPrivate: false
+              description: ""
+              sortKey: -1786595145049
+            method: GET
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/exercicios/66
+            name: Buscar Exercicio por ID
+            meta:
+              id: req_b5cb3e0275ad4a9e9e92b08467e8a893
+              created: 1786595150425
+              modified: 1786595154345
+              isPrivate: false
+              description: ""
+              sortKey: -1786595154284
+            method: GET
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/exercicios/66
+            name: Atualizar Exercicio
+            meta:
+              id: req_f06c6f8980204ec9998165b7e4e454d2
+              created: 1786595160190
+              modified: 1786595163480
+              isPrivate: false
+              description: ""
+              sortKey: -1786595163418
+            method: PUT
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "series": 4,
+                  "repeticoes": 10,
+                  "carga": 35.0,
+                  "descansoSegundos": 90,
+                  "tipoExercicioId": 66
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/exercicios/66
+            name: Deletar Exercicio
+            meta:
+              id: req_d3de13f79fe8416c93d2999479ddd3d3
+              created: 1786595168062
+              modified: 1786595170882
+              isPrivate: false
+              description: ""
+              sortKey: -1786595170822
+            method: DELETE
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Treino
+        meta:
+          id: fld_cb86f467d7f04afd8fae288d59e45c01
+          created: 1786594864937
+          modified: 1786594867531
+          sortKey: -1786594864937
+          description: ""
+        children:
+          - url: http://localhost:8081/api/treinos
+            name: Cadastrar Treino (Sem exercicio)
+            meta:
+              id: req_492df36979d94e0b8119006a91834f0d
+              created: 1786595188474
+              modified: 1786595192872
+              isPrivate: false
+              description: ""
+              sortKey: -1786595192814
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nomeTreino": "Treino A - Peito e Tríceps",
+                  "dataFim": "2026-12-31",
+                  "ativo": true
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/treinos
+            name: Cadastrar Treino com Exercicio Associado
+            meta:
+              id: req_0327b37506ae462786212d67c6fc897d
+              created: 1786595199840
+              modified: 1786595202176
+              isPrivate: false
+              description: ""
+              sortKey: -1786595202117
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nomeTreino": "Treino B - Costas e Bíceps",
+                  "dataFim": "2026-12-31",
+                  "ativo": true,
+                  "exerciciosIds": [69]
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/treinos
+            name: ERRO 404 - Cadastrar Treino com Exercicio Inexistente
+            meta:
+              id: req_b9d956b999e24ff099c3cd5a08228b67
+              created: 1786595207862
+              modified: 1786595210837
+              isPrivate: false
+              description: ""
+              sortKey: -1786595210778
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nomeTreino": "Treino C - Pernas",
+                  "dataFim": "2026-12-31",
+                  "ativo": true,
+                  "exerciciosIds": [999]
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/treinos
+            name: Listar Todos os Treinos
+            meta:
+              id: req_010c8c4061424294b60ad8040e06692b
+              created: 1786595216253
+              modified: 1786595219010
+              isPrivate: false
+              description: ""
+              sortKey: -1786595210878
+            method: GET
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/treinos/69
+            name: Buscar Treino por ID
+            meta:
+              id: req_a3e68bc96d1c4c2a9f141d68c3fadc83
+              created: 1786595222967
+              modified: 1786595226661
+              isPrivate: false
+              description: ""
+              sortKey: -1786595226593
+            method: GET
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/treinos/69
+            name: Atualizar Treino
+            meta:
+              id: req_b146f246ad984057af909eac423b3731
+              created: 1786595232047
+              modified: 1786595242828
+              isPrivate: false
+              description: ""
+              sortKey: -1786595242752
+            method: PUT
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "nomeTreino": "Treino A1 - Peito Hipertrofia",
+                  "dataFim": "2026-06-30",
+                  "ativo": false
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://localhost:8081/api/treinos/69
+            name: Deletar Treino
+            meta:
+              id: req_adaeb6cecba94fe2ae008744c5837430
+              created: 1786595253276
+              modified: 1786595260588
+              isPrivate: false
+              description: ""
+              sortKey: -1786595260521
+            method: DELETE
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_43de51a08f24fcc3758af26d12335106bebe6dc2
+    created: 1786594649920
+    modified: 1786594649920
+environments:
+  name: Base Environment
+  meta:
+    id: env_43de51a08f24fcc3758af26d12335106bebe6dc2
+    created: 1786594649918
+    modified: 1786594649918
+    isPrivate: false

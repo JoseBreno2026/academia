@@ -9,17 +9,14 @@ import br.edu.ufape.poo.academia.negocio.basico.TipoExercicio;
 @Component
 public class TipoExercicioConversor {
 
-    public TipoExercicio convertToEntity(TipoExercicioDTORequest request) {
-        TipoExercicio entity = new TipoExercicio();
-        entity.setNome(request.nome());
-        entity.setGrupoMuscular(request.grupoMuscular());
-        return entity;
+    public TipoExercicio requestToEntity(TipoExercicioDTORequest dto) {
+        TipoExercicio tipo = new TipoExercicio();
+        tipo.setNome(dto.nome());
+        tipo.setGrupoMuscular(dto.grupoMuscular());
+        return tipo;
     }
 
-    public TipoExercicioDTOResponse convertToResponse(TipoExercicio entity) {
-        if (entity == null) {
-            return null;
-        }
+    public TipoExercicioDTOResponse entityToResponse(TipoExercicio entity) {
         return new TipoExercicioDTOResponse(
             entity.getId(),
             entity.getNome(),

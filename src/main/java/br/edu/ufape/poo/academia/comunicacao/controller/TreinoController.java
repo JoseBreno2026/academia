@@ -36,7 +36,7 @@ public class TreinoController {
     @PostMapping
     public ResponseEntity<?> cadastrar(@Valid @RequestBody TreinoDTORequest dto) {
         try {
-            Treino entity = conversor.convertToEntity(dto);
+            Treino entity = conversor.requestToEntity(dto);
             Treino salva = fachada.salvarTreino(entity);
 
             if (dto.exerciciosIds() != null) {
@@ -46,7 +46,7 @@ public class TreinoController {
             }
 
             Treino treinoAtualizado = fachada.buscarTreinoPorId(salva.getId());
-            return ResponseEntity.status(HttpStatus.CREATED).body(conversor.convertToResponse(treinoAtualizado));
+            return ResponseEntity.status(HttpStatus.CREATED).body(conversor.entityToResponse(treinoAtualizado));
         } catch (TreinoNaoEncontradoException | ExercicioNaoEncontradoException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
@@ -56,7 +56,7 @@ public class TreinoController {
     public ResponseEntity<List<TreinoDTOResponse>> listarTodos() {
         List<Treino> lista = fachada.listarTreinos();
         List<TreinoDTOResponse> response = lista.stream()
-                .map(conversor::convertToResponse)
+                .map(conversor::entityToResponse)
                 .toList();
         return ResponseEntity.ok(response);
     }
@@ -65,7 +65,7 @@ public class TreinoController {
     public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
         try {
             Treino entity = fachada.buscarTreinoPorId(id);
-            return ResponseEntity.ok(conversor.convertToResponse(entity));
+            return ResponseEntity.ok(conversor.entityToResponse(entity));
         } catch (TreinoNaoEncontradoException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
@@ -74,20 +74,17 @@ public class TreinoController {
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizar(@PathVariable Long id, @Valid @RequestBody TreinoDTORequest dto) {
         try {
-            fachada.buscarTreinoPorId(id);
-            Treino entity = conversor.convertToEntity(dto);
-            entity.setId(id);
-            Treino salva = fachada.salvarTreino(entity);
-
-            if (dto.exerciciosIds() != null) {
-                for (Long exId : dto.exerciciosIds()) {
-                    fachada.adicionarExercicioAoTreino(salva.getId(), exId);
-                }
+            Treino existente = fachada.buscarTreinoPorId(id);
+            
+            existente.setNomeTreino(dto.nomeTreino());
+            existente.setDataFim(dto.dataFim());
+            if (dto.ativo() != null) {
+                existente.setAtivo(dto.ativo());
             }
 
-            Treino treinoAtualizado = fachada.buscarTreinoPorId(salva.getId());
-            return ResponseEntity.ok(conversor.convertToResponse(treinoAtualizado));
-        } catch (TreinoNaoEncontradoException | ExercicioNaoEncontradoException e) {
+            Treino atualizada = fachada.salvarTreino(existente);
+            return ResponseEntity.ok(conversor.entityToResponse(atualizada));
+        } catch (TreinoNaoEncontradoException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }

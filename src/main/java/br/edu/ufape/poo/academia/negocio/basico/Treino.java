@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
 
 @Entity
 public class Treino {
@@ -40,6 +41,13 @@ public class Treino {
         this.dataCriacao = dataCriacao;
         this.dataFim = dataFim;
         this.ativo = ativo;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        if (this.dataCriacao == null) {
+            this.dataCriacao = LocalDate.now();
+        }
     }
 
     public Long getId() {
