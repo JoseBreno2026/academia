@@ -1,17 +1,38 @@
+'use client';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-async function getInstrutores() {
-  try {
-    const res = await fetch('http://localhost:8081/instrutores/', { cache: 'no-store' });
-    if (!res.ok) return [];
-    return res.json();
-  } catch (error) {
-    return [];
-  }
-}
+export default function InstrutoresPage() {
+  const [instrutores, setInstrutores] = useState([]);
+  const [carregando, setCarregando] = useState(true);
 
-export default async function InstrutoresPage() {
-  const instrutores = await getInstrutores();
+  const carregarInstrutores = () => {
+    setCarregando(true);
+    fetch('http://localhost:8081/instrutores/')
+      .then((res) => (res.ok ? res.json() : []))
+      .then((data) => setInstrutores(data))
+      .catch((err) => console.error(err))
+      .finally(() => setCarregando(false));
+  };
+
+  useEffect(() => {
+    carregarInstrutores();
+  }, []);
+
+  const handleDelete = async (id) => {
+    if (confirm(`Tem certeza que deseja excluir o instrutor #${id}?`)) {
+      const res = await fetch(`http://localhost:8081/instrutores/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (res.ok) {
+        alert('Instrutor excluído com sucesso!');
+        carregarInstrutores();
+      } else {
+        alert('Erro ao excluir instrutor.');
+      }
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -22,31 +43,38 @@ export default async function InstrutoresPage() {
         </Link>
       </div>
 
-      <table className="w-full border-collapse border bg-white shadow rounded">
-        <thead>
-          <tr className="bg-gray-100 text-left">
-            <th className="border p-2">Nome</th>
-            <th className="border p-2">CREF</th>
-            <th className="border p-2">Especialidade</th>
-            <th className="border p-2">Salário</th>
-            <th className="border p-2">Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {instrutores.map((ins) => (
-            <tr key={ins.id}>
-              <td className="border p-2">{ins.nome}</td>
-              <td className="border p-2">{ins.cref}</td>
-              <td className="border p-2">{ins.especialidade}</td>
-              <td className="border p-2">R$ {ins.salario}</td>
-              <td className="border p-2 space-x-2">
-                <Link href={`/instrutores/${ins.id}`} className="text-blue-600 hover:underline">Ver</Link>
-                <Link href={`/instrutores/${ins.id}/editar`} className="text-amber-600 hover:underline">Editar</Link>
-              </td>
+      {carregando ? (
+        <p>Carregando instrutores...</p>
+      ) : (
+        <table className="w-full border-collapse border bg-white shadow rounded">
+          <thead>
+            <tr className="bg-gray-100 text-left">
+              <th className="border p-2">Nome</th>
+              <th className="border p-2">CREF</th>
+              <th className="border p-2">Especialidade</th>
+              <th className="border p-2">Salário</th>
+              <th className="border p-2">Ações</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {instrutores.map((ins) => (
+              <tr key={ins.id}>
+                <td className="border p-2">{ins.nome}</td>
+                <td className="border p-2">{ins.cref}</td>
+                <td className="border p-2">{ins.especialidade}</td>
+                <td className="border p-2">R$ {ins.salario}</td>
+                <td className="border p-2 space-x-2">
+                  <Link href={`/instrutores/${ins.id}`} className="text-blue-600 hover:underline">Ver</Link>
+                  <Link href={`/instrutores/${ins.id}/editar`} className="text-amber-600 hover:underline">Editar</Link>
+                  <button onClick={() => handleDelete(ins.id)} className="text-red-600 hover:underline">
+                    Excluir
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }
