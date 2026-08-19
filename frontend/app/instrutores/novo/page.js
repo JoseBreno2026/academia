@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import CampoInput from '@/components/CampoInput';
 
 export default function NovoInstrutorPage() {
   const router = useRouter();
@@ -39,15 +40,15 @@ export default function NovoInstrutorPage() {
     <form onSubmit={handleSubmit} className="max-w-lg space-y-4 bg-white p-6 rounded shadow">
       <h1 className="text-2xl font-bold mb-4">Cadastrar Novo Instrutor</h1>
       
-      <input name="nome" placeholder="Nome Completo" onChange={handleChange} required className="w-full border p-2 rounded" />
-      <input name="cpf" placeholder="CPF" onChange={handleChange} required className="w-full border p-2 rounded" />
-      <input name="email" type="email" placeholder="E-mail" onChange={handleChange} required className="w-full border p-2 rounded" />
-      <input name="telefone" placeholder="Telefone" onChange={handleChange} required className="w-full border p-2 rounded" />
-      <input name="cref" placeholder="CREF" onChange={handleChange} required className="w-full border p-2 rounded" />
-      <input name="especialidade" placeholder="Especialidade" onChange={handleChange} required className="w-full border p-2 rounded" />
-      <input name="salario" type="number" step="0.01" placeholder="Salário" onChange={handleChange} required className="w-full border p-2 rounded" />
+      <CampoInput label="Nome Completo" name="nome" value={formData.nome} onChange={handleChange} placeholder="Nome Completo" />
+      <CampoInput label="CPF" name="cpf" value={formData.cpf} onChange={handleChange} placeholder="CPF" />
+      <CampoInput label="E-mail" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="E-mail" />
+      <CampoInput label="Telefone" name="telefone" value={formData.telefone} onChange={handleChange} placeholder="Telefone" />
+      <CampoInput label="CREF" name="cref" value={formData.cref} onChange={handleChange} placeholder="CREF" />
+      <CampoInput label="Especialidade" name="especialidade" value={formData.especialidade} onChange={handleChange} placeholder="Especialidade" />
+      <CampoInput label="Salário" name="salario" type="number" value={formData.salario} onChange={handleChange} placeholder="Salário" />
 
-      <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+      <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full">
         Salvar Instrutor
       </button>
     </form>

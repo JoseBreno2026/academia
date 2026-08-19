@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
+import CampoInput from '@/components/CampoInput';
 
 export default function EditarInstrutorPage({ params }) {
   const { id } = use(params);
@@ -47,15 +48,15 @@ export default function EditarInstrutorPage({ params }) {
     <form onSubmit={handleSubmit} className="max-w-lg space-y-4 bg-white p-6 rounded shadow">
       <h1 className="text-2xl font-bold mb-4">Editar Instrutor #{id}</h1>
       
-      <input name="nome" value={formData.nome || ''} onChange={handleChange} required className="w-full border p-2 rounded" />
-      <input name="cpf" value={formData.cpf || ''} onChange={handleChange} required className="w-full border p-2 rounded" />
-      <input name="email" type="email" value={formData.email || ''} onChange={handleChange} required className="w-full border p-2 rounded" />
-      <input name="telefone" value={formData.telefone || ''} onChange={handleChange} required className="w-full border p-2 rounded" />
-      <input name="cref" value={formData.cref || ''} onChange={handleChange} required className="w-full border p-2 rounded" />
-      <input name="especialidade" value={formData.especialidade || ''} onChange={handleChange} required className="w-full border p-2 rounded" />
-      <input name="salario" type="number" step="0.01" value={formData.salario || 0} onChange={handleChange} required className="w-full border p-2 rounded" />
+      <CampoInput label="Nome Completo" name="nome" value={formData.nome || ''} onChange={handleChange} />
+      <CampoInput label="CPF" name="cpf" value={formData.cpf || ''} onChange={handleChange} />
+      <CampoInput label="E-mail" name="email" type="email" value={formData.email || ''} onChange={handleChange} />
+      <CampoInput label="Telefone" name="telefone" value={formData.telefone || ''} onChange={handleChange} />
+      <CampoInput label="CREF" name="cref" value={formData.cref || ''} onChange={handleChange} />
+      <CampoInput label="Especialidade" name="especialidade" value={formData.especialidade || ''} onChange={handleChange} />
+      <CampoInput label="Salário" name="salario" type="number" value={formData.salario || 0} onChange={handleChange} />
 
-      <button type="submit" className="bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700">
+      <button type="submit" className="bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700 w-full">
         Atualizar Instrutor
       </button>
     </form>

@@ -1,6 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import BotaoExcluir from '@/components/BotaoExcluir';
+import StatusBadge from '@/components/StatusBadge';
 
 export default function AlunosPage() {
   const [alunos, setAlunos] = useState([]);
@@ -18,21 +20,6 @@ export default function AlunosPage() {
   useEffect(() => {
     carregarAlunos();
   }, []);
-
-  const handleDelete = async (id) => {
-    if (confirm(`Tem certeza que deseja excluir o aluno #${id}?`)) {
-      const res = await fetch(`http://localhost:8081/alunos/${id}`, {
-        method: 'DELETE',
-      });
-
-      if (res.ok) {
-        alert('Aluno excluído com sucesso!');
-        carregarAlunos();
-      } else {
-        alert('Erro ao excluir aluno.');
-      }
-    }
-  };
 
   return (
     <div className="space-y-6">
@@ -62,13 +49,17 @@ export default function AlunosPage() {
                 <td className="border p-2">{aluno.nome}</td>
                 <td className="border p-2">{aluno.cpf}</td>
                 <td className="border p-2">{aluno.matricula}</td>
-                <td className="border p-2">{aluno.statusMatricula}</td>
+                <td className="border p-2">
+                  <StatusBadge status={aluno.statusMatricula} />
+                </td>
                 <td className="border p-2 space-x-2">
-                  <Link href={`/alunos/${aluno.id}`} className="text-blue-600 hover:underline">Ver</Link>
-                  <Link href={`/alunos/${aluno.id}/editar`} className="text-amber-600 hover:underline">Editar</Link>
-                  <button onClick={() => handleDelete(aluno.id)} className="text-red-600 hover:underline">
-                    Excluir
-                  </button>
+                  <Link href={`/alunos/${aluno.id}`} className="text-blue-600 hover:underline">
+                    Ver
+                  </Link>
+                  <Link href={`/alunos/${aluno.id}/editar`} className="text-amber-600 hover:underline">
+                    Editar
+                  </Link>
+                  <BotaoExcluir endpoint="alunos" id={aluno.id} onSuccess={carregarAlunos} />
                 </td>
               </tr>
             ))}

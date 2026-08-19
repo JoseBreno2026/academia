@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import BotaoExcluir from '@/components/BotaoExcluir';
 
 export default function InstrutoresPage() {
   const [instrutores, setInstrutores] = useState([]);
@@ -18,21 +19,6 @@ export default function InstrutoresPage() {
   useEffect(() => {
     carregarInstrutores();
   }, []);
-
-  const handleDelete = async (id) => {
-    if (confirm(`Tem certeza que deseja excluir o instrutor #${id}?`)) {
-      const res = await fetch(`http://localhost:8081/instrutores/${id}`, {
-        method: 'DELETE',
-      });
-
-      if (res.ok) {
-        alert('Instrutor excluído com sucesso!');
-        carregarInstrutores();
-      } else {
-        alert('Erro ao excluir instrutor.');
-      }
-    }
-  };
 
   return (
     <div className="space-y-6">
@@ -64,11 +50,13 @@ export default function InstrutoresPage() {
                 <td className="border p-2">{ins.especialidade}</td>
                 <td className="border p-2">R$ {ins.salario}</td>
                 <td className="border p-2 space-x-2">
-                  <Link href={`/instrutores/${ins.id}`} className="text-blue-600 hover:underline">Ver</Link>
-                  <Link href={`/instrutores/${ins.id}/editar`} className="text-amber-600 hover:underline">Editar</Link>
-                  <button onClick={() => handleDelete(ins.id)} className="text-red-600 hover:underline">
-                    Excluir
-                  </button>
+                  <Link href={`/instrutores/${ins.id}`} className="text-blue-600 hover:underline">
+                    Ver
+                  </Link>
+                  <Link href={`/instrutores/${ins.id}/editar`} className="text-amber-600 hover:underline">
+                    Editar
+                  </Link>
+                  <BotaoExcluir endpoint="instrutores" id={ins.id} onSuccess={carregarInstrutores} />
                 </td>
               </tr>
             ))}

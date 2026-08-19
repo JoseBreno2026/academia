@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState, use } from 'react';
 import Link from 'next/link';
+import CampoInput from '@/components/CampoInput';
 
 export default function DetalhesAlunoPage({ params }) {
   const { id } = use(params);
@@ -29,7 +30,10 @@ export default function DetalhesAlunoPage({ params }) {
       <p><strong>Telefone:</strong> {aluno.telefone}</p>
       <p><strong>Matrícula:</strong> {aluno.matricula}</p>
       <p><strong>Data de Matrícula:</strong> {aluno.dataMatricula}</p>
-      <p><strong>Status:</strong> {aluno.statusMatricula}</p>
+      <div className="flex items-center space-x-2">
+        <strong>Status:</strong>
+        <StatusBadge status={aluno.statusMatricula} />
+      </div>
 
       <div className="pt-4 space-x-3">
         <Link href={`/alunos/${id}/editar`} className="bg-amber-500 text-white px-4 py-2 rounded hover:bg-amber-600">
