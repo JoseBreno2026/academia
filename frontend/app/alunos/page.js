@@ -1,8 +1,52 @@
-export default function AlunosPage() {
+import Link from 'next/link';
+
+async function getAlunos() {
+  try {
+    const res = await fetch('http://localhost:8081/alunos/', { cache: 'no-store' });
+    if (!res.ok) return [];
+    return res.json();
+  } catch (error) {
+    return [];
+  }
+}
+
+export default async function AlunosPage() {
+  const alunos = await getAlunos();
+
   return (
-    <div>
-      <h1 className="text-3xl font-bold mb-4">Gestão de Alunos</h1>
-      <p className="text-gray-600">Listagem e operações de alunos da academia.</p>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h1 className="text-3xl font-bold">Gestão de Alunos</h1>
+        <Link href="/alunos/novo" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          + Novo Aluno
+        </Link>
+      </div>
+
+      <table className="w-full border-collapse border bg-white shadow rounded">
+        <thead>
+          <tr className="bg-gray-100 text-left">
+            <th className="border p-2">Nome</th>
+            <th className="border p-2">CPF</th>
+            <th className="border p-2">Matrícula</th>
+            <th className="border p-2">Status</th>
+            <th className="border p-2">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {alunos.map((aluno) => (
+            <tr key={aluno.id}>
+              <td className="border p-2">{aluno.nome}</td>
+              <td className="border p-2">{aluno.cpf}</td>
+              <td className="border p-2">{aluno.matricula}</td>
+              <td className="border p-2">{aluno.statusMatricula}</td>
+              <td className="border p-2 space-x-2">
+                <Link href={`/alunos/${aluno.id}`} className="text-blue-600 hover:underline">Ver</Link>
+                <Link href={`/alunos/${aluno.id}/editar`} className="text-amber-600 hover:underline">Editar</Link>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
