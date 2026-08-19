@@ -2,6 +2,7 @@
 import { useEffect, useState, use } from 'react';
 import Link from 'next/link';
 import CampoInput from '@/components/CampoInput';
+import StatusBadge from '@/components/StatusBadge';
 
 export default function DetalhesAlunoPage({ params }) {
   const { id } = use(params);
