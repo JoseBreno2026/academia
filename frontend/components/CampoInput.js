@@ -1,13 +1,19 @@
-'use client';
-
-export default function CampoInput({ label, name, type = 'text', value, onChange, required = true, placeholder = '' }) {
+export default function CampoInput({ 
+  label, 
+  name, 
+  type = 'text', 
+  defaultValue, 
+  onChange, 
+  required = true, 
+  placeholder = '' 
+}) {
   return (
     <div className="flex flex-col space-y-1">
       {label && <label className="text-sm font-medium text-gray-700">{label}</label>}
       <input
         name={name}
         type={type}
-        value={value}
+        defaultValue={defaultValue}
         onChange={onChange}
         required={required}
         placeholder={placeholder}

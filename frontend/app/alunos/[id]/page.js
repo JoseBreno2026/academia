@@ -1,26 +1,12 @@
-'use client';
-import { useEffect, useState, use } from 'react';
 import Link from 'next/link';
-import CampoInput from '@/components/CampoInput';
 import StatusBadge from '@/components/StatusBadge';
+import { getAlunoById, atualizarAluno } from '@/app/actions/alunos';
 
-export default function DetalhesAlunoPage({ params }) {
-  const { id } = use(params);
-  const [aluno, setAluno] = useState(null);
-  const [erro, setErro] = useState(false);
+export default async function DetalhesAlunoPage({ params }) {
+  const { id } = await params;
+  const aluno = await getAlunoById(id);
 
-  useEffect(() => {
-    fetch(`http://localhost:8081/alunos/id/${id}`)
-      .then((res) => {
-        if (!res.ok) throw new Error();
-        return res.json();
-      })
-      .then((data) => setAluno(data))
-      .catch(() => setErro(true));
-  }, [id]);
-
-  if (erro) return <p className="text-red-500">Erro ao carregar dados do aluno #{id}.</p>;
-  if (!aluno) return <p>Carregando...</p>;
+  if (!aluno) return <p className="text-red-500">Erro ao carregar dados do aluno #{id}.</p>;
 
   return (
     <div className="max-w-lg bg-white p-6 rounded shadow space-y-3">

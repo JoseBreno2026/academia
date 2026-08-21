@@ -1,24 +1,11 @@
-'use client';
-import { useEffect, useState, use } from 'react';
 import Link from 'next/link';
+import { getInstrutorById } from '@/app/actions/instrutores';
 
-export default function DetalhesInstrutorPage({ params }) {
-  const { id } = use(params);
-  const [instrutor, setInstrutor] = useState(null);
-  const [erro, setErro] = useState(false);
+export default async function DetalhesInstrutorPage({ params }) {
+  const { id } = await params;
+  const instrutor = await getInstrutorById(id);
 
-  useEffect(() => {
-    fetch(`http://localhost:8081/instrutores/id/${id}`)
-      .then((res) => {
-        if (!res.ok) throw new Error();
-        return res.json();
-      })
-      .then((data) => setInstrutor(data))
-      .catch(() => setErro(true));
-  }, [id]);
-
-  if (erro) return <p className="text-red-500">Erro ao carregar dados do instrutor #{id}.</p>;
-  if (!instrutor) return <p>Carregando...</p>;
+  if (!instrutor) return <p className="text-red-500">Erro ao carregar dados do instrutor #{id}.</p>;
 
   return (
     <div className="max-w-lg bg-white p-6 rounded shadow space-y-3">

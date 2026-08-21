@@ -1,5 +1,3 @@
-'use client';
-
 export default function StatusBadge({ status }) {
   const cores = {
     ATIVO: 'bg-green-100 text-green-800 border-green-300',
