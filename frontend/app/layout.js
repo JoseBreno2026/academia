@@ -3,7 +3,7 @@ import './globals.css';
 
 export const metadata = {
   title: 'Gestão de Academia',
-  description: 'Sistema de gestão de alunos e instrutores',
+  description: 'Sistema de gestão de alunos, instrutores e treinos',
 };
 
 export default function RootLayout({ children }) {
@@ -19,6 +19,15 @@ export default function RootLayout({ children }) {
               </Link>
               <Link href="/instrutores" className="hover:underline">
                 Instrutores
+              </Link>
+              <Link href="/tipos-exercicios" className="hover:underline">
+                Tipos de Exercícios
+              </Link>
+              <Link href="/exercicios" className="hover:underline">
+                Exercícios
+              </Link>
+              <Link href="/treinos" className="hover:underline">
+                Treinos
               </Link>
             </nav>
           </div>
