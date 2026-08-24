@@ -5,6 +5,8 @@ import { deletarInstrutor } from '@/app/actions/instrutores';
 import { deletarTreino } from '@/app/actions/treinos';
 import { deletarExercicio } from '@/app/actions/exercicios';
 import { deletarTipoExercicio } from '@/app/actions/tiposExercicios';
+import { deletarPlano } from '@/app/actions/planos';
+import { deletarPagamento } from '@/app/actions/pagamentos';
 
 export default function BotaoExcluir({ endpoint = 'alunos', id }) {
   const handleDelete = async () => {
@@ -24,6 +26,12 @@ export default function BotaoExcluir({ endpoint = 'alunos', id }) {
         break;
       case 'tipos-exercicios':
         res = await deletarTipoExercicio(id);
+        break;
+      case 'planos':
+        res = await deletarPlano(id);
+        break;
+      case 'pagamentos':
+        res = await deletarPagamento(id);
         break;
       case 'alunos':
       default:

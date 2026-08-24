@@ -5,7 +5,8 @@ export default function CampoInput({
   defaultValue, 
   onChange, 
   required = true, 
-  placeholder = '' 
+  placeholder = '',
+  step
 }) {
   return (
     <div className="flex flex-col space-y-1">
@@ -13,6 +14,7 @@ export default function CampoInput({
       <input
         name={name}
         type={type}
+        step={step}
         defaultValue={defaultValue}
         onChange={onChange}
         required={required}

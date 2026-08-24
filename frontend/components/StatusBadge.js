@@ -1,7 +1,9 @@
 export default function StatusBadge({ status }) {
   const cores = {
+    PAGO: 'bg-green-100 text-green-800 border-green-300',
     ATIVO: 'bg-green-100 text-green-800 border-green-300',
     INATIVO: 'bg-red-100 text-red-800 border-red-300',
+    CANCELADO: 'bg-red-100 text-red-800 border-red-300',
     PENDENTE: 'bg-amber-100 text-amber-800 border-amber-300',
   };
 
