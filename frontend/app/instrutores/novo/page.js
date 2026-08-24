@@ -21,8 +21,8 @@ export default function NovoInstrutorPage() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-lg space-y-4 bg-white p-6 rounded shadow">
-      <h1 className="text-2xl font-bold mb-4">Cadastrar Novo Instrutor</h1>
+    <form onSubmit={handleSubmit} className="max-w-lg space-y-4 bg-white p-6 rounded shadow border border-gray-100 text-gray-800">
+      <h1 className="text-2xl font-bold mb-4 text-gray-900">Cadastrar Novo Instrutor</h1>
       
       <CampoInput label="Nome Completo" name="nome" placeholder="Nome Completo" />
       <CampoInput label="CPF" name="cpf" placeholder="CPF" />
@@ -30,9 +30,9 @@ export default function NovoInstrutorPage() {
       <CampoInput label="Telefone" name="telefone" placeholder="Telefone" />
       <CampoInput label="CREF" name="cref" placeholder="CREF" />
       <CampoInput label="Especialidade" name="especialidade" placeholder="Especialidade" />
-      <CampoInput label="Salário" name="salario" type="number" placeholder="Salário" />
+      <CampoInput label="Salário" name="salario" type="number" placeholder="Salário" step="0.01" />
 
-      <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full">
+      <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full font-medium transition">
         Salvar Instrutor
       </button>
     </form>

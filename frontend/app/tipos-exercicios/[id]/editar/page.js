@@ -31,16 +31,16 @@ export default function EditarTipoExercicioPage({ params }) {
     }
   }
 
-  if (!tipo) return <p className="p-4">Carregando dados...</p>;
+  if (!tipo) return <p className="p-4 text-gray-700">Carregando dados...</p>;
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-lg space-y-4 bg-white p-6 rounded shadow">
-      <h1 className="text-2xl font-bold mb-4">Editar Tipo de Exercício #{id}</h1>
+    <form onSubmit={handleSubmit} className="max-w-lg space-y-4 bg-white p-6 rounded shadow border border-gray-100 text-gray-800">
+      <h1 className="text-2xl font-bold mb-4 text-gray-900">Editar Tipo de Exercício #{id}</h1>
 
       <CampoInput label="Nome" name="nome" defaultValue={tipo.nome} placeholder="Nome" />
       <CampoInput label="Grupo Muscular" name="grupoMuscular" defaultValue={tipo.grupoMuscular} placeholder="Grupo Muscular" />
 
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">
+      <button type="submit" className="bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700 w-full font-medium transition">
         Salvar Alterações
       </button>
     </form>

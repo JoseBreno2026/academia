@@ -28,12 +28,12 @@ export default function EditarInstrutorPage({ params }) {
     }
   }
 
-  if (carregando) return <p>Carregando dados do instrutor...</p>;
+  if (carregando) return <p className="text-gray-700">Carregando dados do instrutor...</p>;
   if (!instrutor) return <p className="text-red-500">Instrutor não encontrado.</p>;
 
   return (
-    <form action={handleAction} className="max-w-lg space-y-4 bg-white p-6 rounded shadow">
-      <h1 className="text-2xl font-bold mb-4">Editar Instrutor #{id}</h1>
+    <form action={handleAction} className="max-w-lg space-y-4 bg-white p-6 rounded shadow border border-gray-100 text-gray-800">
+      <h1 className="text-2xl font-bold mb-4 text-gray-900">Editar Instrutor #{id}</h1>
       
       <CampoInput label="Nome Completo" name="nome" defaultValue={instrutor.nome} />
       <CampoInput label="CPF" name="cpf" defaultValue={instrutor.cpf} />
@@ -41,9 +41,9 @@ export default function EditarInstrutorPage({ params }) {
       <CampoInput label="Telefone" name="telefone" defaultValue={instrutor.telefone} />
       <CampoInput label="CREF" name="cref" defaultValue={instrutor.cref} />
       <CampoInput label="Especialidade" name="especialidade" defaultValue={instrutor.especialidade} />
-      <CampoInput label="Salário" name="salario" type="number" defaultValue={instrutor.salario} />
+      <CampoInput label="Salário" name="salario" type="number" defaultValue={instrutor.salario} step="0.01" />
 
-      <button type="submit" className="bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700 w-full">
+      <button type="submit" className="bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700 w-full font-medium transition">
         Atualizar Instrutor
       </button>
     </form>

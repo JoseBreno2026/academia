@@ -30,26 +30,26 @@ export default function TiposExerciciosPage() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Tipos de Exercícios</h1>
+        <h1 className="text-3xl font-bold text-gray-900">Tipos de Exercícios</h1>
         <Link
           href="/tipos-exercicios/novo"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
         >
           Novo Tipo
         </Link>
       </div>
 
-      <div className="bg-white shadow rounded overflow-hidden">
+      <div className="bg-white shadow rounded-lg overflow-hidden border border-gray-100">
         <table className="w-full text-left border-collapse">
-          <thead className="bg-gray-100 border-b">
+          <thead className="bg-gray-50 border-b border-gray-200">
             <tr>
-              <th className="p-3 font-semibold">ID</th>
-              <th className="p-3 font-semibold">Nome</th>
-              <th className="p-3 font-semibold">Grupo Muscular</th>
-              <th className="p-3 font-semibold text-right">Ações</th>
+              <th className="p-4 font-semibold text-sm text-gray-500">ID</th>
+              <th className="p-4 font-semibold text-sm text-gray-500">Nome</th>
+              <th className="p-4 font-semibold text-sm text-gray-500">Grupo Muscular</th>
+              <th className="p-4 font-semibold text-sm text-gray-500 text-right">Ações</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="divide-y divide-gray-100 text-sm">
             {tipos.length === 0 ? (
               <tr>
                 <td colSpan="4" className="p-4 text-center text-gray-500">
@@ -58,20 +58,20 @@ export default function TiposExerciciosPage() {
               </tr>
             ) : (
               tipos.map((t) => (
-                <tr key={t.id} className="border-b hover:bg-gray-50">
-                  <td className="p-3">{t.id}</td>
-                  <td className="p-3 font-medium">{t.nome}</td>
-                  <td className="p-3">{t.grupoMuscular}</td>
-                  <td className="p-3 text-right space-x-2">
+                <tr key={t.id} className="hover:bg-gray-50">
+                  <td className="p-4 text-gray-700">{t.id}</td>
+                  <td className="p-4 font-medium text-gray-900">{t.nome}</td>
+                  <td className="p-4 text-gray-700">{t.grupoMuscular}</td>
+                  <td className="p-4 text-right space-x-3 font-medium">
                     <Link
                       href={`/tipos-exercicios/${t.id}`}
-                      className="text-blue-600 hover:underline mr-2"
+                      className="text-blue-600 hover:underline"
                     >
                       Ver
                     </Link>
                     <Link
                       href={`/tipos-exercicios/${t.id}/editar`}
-                      className="text-amber-600 hover:underline mr-2"
+                      className="text-amber-600 hover:underline"
                     >
                       Editar
                     </Link>

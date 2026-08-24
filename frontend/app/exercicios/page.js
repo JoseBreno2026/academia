@@ -30,28 +30,28 @@ export default function ExerciciosPage() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Exercícios Configurados</h1>
+        <h1 className="text-3xl font-bold text-gray-900">Exercícios Configurados</h1>
         <Link
           href="/exercicios/novo"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
         >
           Novo Exercício
         </Link>
       </div>
 
-      <div className="bg-white shadow rounded overflow-hidden">
+      <div className="bg-white shadow rounded-lg overflow-hidden border border-gray-100">
         <table className="w-full text-left border-collapse">
-          <thead className="bg-gray-100 border-b">
+          <thead className="bg-gray-50 border-b border-gray-200">
             <tr>
-              <th className="p-3 font-semibold">ID</th>
-              <th className="p-3 font-semibold">Exercício</th>
-              <th className="p-3 font-semibold">Séries x Repetições</th>
-              <th className="p-3 font-semibold">Carga</th>
-              <th className="p-3 font-semibold">Descanso</th>
-              <th className="p-3 font-semibold text-right">Ações</th>
+              <th className="p-4 font-semibold text-sm text-gray-500">ID</th>
+              <th className="p-4 font-semibold text-sm text-gray-500">Exercício</th>
+              <th className="p-4 font-semibold text-sm text-gray-500">Séries x Repetições</th>
+              <th className="p-4 font-semibold text-sm text-gray-500">Carga</th>
+              <th className="p-4 font-semibold text-sm text-gray-500">Descanso</th>
+              <th className="p-4 font-semibold text-sm text-gray-500 text-right">Ações</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="divide-y divide-gray-100 text-sm">
             {exercicios.length === 0 ? (
               <tr>
                 <td colSpan="6" className="p-4 text-center text-gray-500">
@@ -60,22 +60,22 @@ export default function ExerciciosPage() {
               </tr>
             ) : (
               exercicios.map((ex) => (
-                <tr key={ex.id} className="border-b hover:bg-gray-50">
-                  <td className="p-3">{ex.id}</td>
-                  <td className="p-3 font-medium">{ex.nome || 'Não especificado'}</td>
-                  <td className="p-3">{ex.series}x{ex.repeticoes}</td>
-                  <td className="p-3">{ex.carga} kg</td>
-                  <td className="p-3">{ex.descansoSegundos}s</td>
-                  <td className="p-3 text-right space-x-2">
+                <tr key={ex.id} className="hover:bg-gray-50">
+                  <td className="p-4 text-gray-700">{ex.id}</td>
+                  <td className="p-4 font-medium text-gray-900">{ex.nome || 'Não especificado'}</td>
+                  <td className="p-4 text-gray-700">{ex.series}x{ex.repeticoes}</td>
+                  <td className="p-4 text-gray-700">{ex.carga} kg</td>
+                  <td className="p-4 text-gray-700">{ex.descansoSegundos}s</td>
+                  <td className="p-4 text-right space-x-3 font-medium">
                     <Link
                       href={`/exercicios/${ex.id}`}
-                      className="text-blue-600 hover:underline mr-2"
+                      className="text-blue-600 hover:underline"
                     >
                       Ver
                     </Link>
                     <Link
                       href={`/exercicios/${ex.id}/editar`}
-                      className="text-amber-600 hover:underline mr-2"
+                      className="text-amber-600 hover:underline"
                     >
                       Editar
                     </Link>

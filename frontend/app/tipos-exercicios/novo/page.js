@@ -16,18 +16,18 @@ export default function NovoTipoExercicioPage() {
       alert('Tipo de Exercício cadastrado com sucesso!');
       router.push('/tipos-exercicios');
     } else {
-      alert('Erro ao cadastrar tipo de exercício. Verifique o console do VS Code.');
+      alert('Erro ao cadastrar tipo de exercício. Verifique o console.');
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-lg space-y-4 bg-white p-6 rounded shadow">
-      <h1 className="text-2xl font-bold mb-4">Cadastrar Tipo de Exercício</h1>
+    <form onSubmit={handleSubmit} className="max-w-lg space-y-4 bg-white p-6 rounded shadow border border-gray-100 text-gray-800">
+      <h1 className="text-2xl font-bold mb-4 text-gray-900">Cadastrar Tipo de Exercício</h1>
 
       <CampoInput label="Nome do Tipo de Exercicio (ex: Supino Reto)" name="nome" placeholder="Nome" />
       <CampoInput label="Grupo Muscular (ex: Peitoral)" name="grupoMuscular" placeholder="Grupo Muscular" />
 
-      <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full">
+      <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full font-medium transition">
         Salvar Tipo de Exercício
       </button>
     </form>

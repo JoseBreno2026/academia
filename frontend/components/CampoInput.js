@@ -19,7 +19,7 @@ export default function CampoInput({
         onChange={onChange}
         required={required}
         placeholder={placeholder}
-        className="w-full border p-2 rounded focus:ring-2 focus:ring-blue-500 outline-none"
+        className="w-full border border-gray-300 p-2 rounded bg-white text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
       />
     </div>
   );
