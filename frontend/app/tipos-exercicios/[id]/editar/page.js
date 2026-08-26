@@ -2,18 +2,20 @@
 
 import { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { getTipoExercicioById, atualizarTipoExercicio } from '@/app/actions/tiposExercicios';
-import CampoInput from '@/components/CampoInput';
 
 export default function EditarTipoExercicioPage({ params }) {
   const router = useRouter();
   const { id } = use(params);
   const [tipo, setTipo] = useState(null);
+  const [carregando, setCarregando] = useState(true);
 
   useEffect(() => {
     async function carregar() {
       const data = await getTipoExercicioById(id);
       if (data) setTipo(data);
+      setCarregando(false);
     }
     carregar();
   }, [id]);
@@ -24,25 +26,88 @@ export default function EditarTipoExercicioPage({ params }) {
 
     const res = await atualizarTipoExercicio(id, formData);
     if (res.success) {
-      alert('Tipo de exercício atualizado com sucesso!');
       router.push('/tipos-exercicios');
     } else {
       alert(res.error || 'Erro ao atualizar o tipo de exercício.');
     }
   }
 
-  if (!tipo) return <p className="p-4 text-gray-700">Carregando dados...</p>;
+  if (carregando) {
+    return (
+      <div className="py-10 text-center text-gray-500 text-xs">
+        Carregando dados do tipo de exercício...
+      </div>
+    );
+  }
+
+  if (!tipo) {
+    return (
+      <div className="py-10 text-center text-rose-500 text-xs">
+        Tipo de exercício não encontrado.
+      </div>
+    );
+  }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-lg space-y-4 bg-white p-6 rounded shadow border border-gray-100 text-gray-800">
-      <h1 className="text-2xl font-bold mb-4 text-gray-900">Editar Tipo de Exercício #{id}</h1>
+    <div className="max-w-md mx-auto space-y-4">
+      <div className="flex items-center justify-between">
+        <h1 className="text-xl font-black text-white uppercase tracking-wide">
+          EDITAR TIPO #{id}
+        </h1>
+        <Link
+          href="/tipos-exercicios"
+          className="text-xs text-gray-400 hover:text-white transition"
+        >
+          ← Voltar
+        </Link>
+      </div>
 
-      <CampoInput label="Nome" name="nome" defaultValue={tipo.nome} placeholder="Nome" />
-      <CampoInput label="Grupo Muscular" name="grupoMuscular" defaultValue={tipo.grupoMuscular} placeholder="Grupo Muscular" />
+      <div className="bg-[#121824] border border-gray-800/80 rounded-xl p-5 shadow-xl">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* NOME */}
+          <div>
+            <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-1">
+              NOME DO EXERCÍCIO
+            </label>
+            <input
+              name="nome"
+              type="text"
+              required
+              defaultValue={tipo.nome}
+              className="w-full bg-[#0b0e14] border border-gray-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#a3e635]"
+            />
+          </div>
 
-      <button type="submit" className="bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700 w-full font-medium transition">
-        Salvar Alterações
-      </button>
-    </form>
+          {/* GRUPO MUSCULAR */}
+          <div>
+            <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-1">
+              GRUPO MUSCULAR
+            </label>
+            <input
+              name="grupoMuscular"
+              type="text"
+              required
+              defaultValue={tipo.grupoMuscular}
+              className="w-full bg-[#0b0e14] border border-gray-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#a3e635]"
+            />
+          </div>
+
+          <div className="flex items-center gap-2 pt-2">
+            <Link
+              href="/tipos-exercicios"
+              className="w-1/2 text-center bg-gray-800 hover:bg-gray-700 text-gray-300 font-bold py-2.5 rounded-lg text-xs uppercase tracking-wider transition"
+            >
+              Cancelar
+            </Link>
+            <button
+              type="submit"
+              className="w-1/2 bg-[#a3e635] hover:bg-[#84cc16] text-black font-extrabold py-2.5 rounded-lg text-xs uppercase tracking-wider transition-all duration-200 shadow-lg shadow-[#a3e635]/10 cursor-pointer"
+            >
+              Salvar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 }

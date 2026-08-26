@@ -34,6 +34,7 @@ export async function criarTreino(payload) {
       const rawData = Object.fromEntries(payload.entries());
       data = {
         nomeTreino: rawData.nomeTreino,
+        dataCriacao: rawData.dataCriacao || null, // <-- ADICIONADO AQUI
         dataFim: rawData.dataFim || null,
         ativo: rawData.ativo === 'true',
         instrutorId: rawData.instrutorId ? Number(rawData.instrutorId) : null,
@@ -68,6 +69,7 @@ export async function atualizarTreino(id, payload) {
       const rawData = Object.fromEntries(payload.entries());
       data = {
         nomeTreino: rawData.nomeTreino,
+        dataCriacao: rawData.dataCriacao || null, // <-- ADICIONADO TAMBÉM NO UPDATE
         dataFim: rawData.dataFim || null,
         ativo: rawData.ativo === 'true',
         instrutorId: rawData.instrutorId ? Number(rawData.instrutorId) : null,

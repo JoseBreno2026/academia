@@ -28,7 +28,12 @@ export async function getTipoExercicioById(id) {
 
 export async function criarTipoExercicio(formData) {
   try {
-    const data = formData instanceof FormData ? Object.fromEntries(formData.entries()) : formData;
+    const rawData = formData instanceof FormData ? Object.fromEntries(formData.entries()) : formData;
+
+    const data = {
+      nome: String(rawData.nome || '').trim(),
+      grupoMuscular: String(rawData.grupoMuscular || '').trim(),
+    };
 
     const res = await fetch(API_URL, {
       method: 'POST',
@@ -52,7 +57,12 @@ export async function criarTipoExercicio(formData) {
 
 export async function atualizarTipoExercicio(id, formData) {
   try {
-    const data = formData instanceof FormData ? Object.fromEntries(formData.entries()) : formData;
+    const rawData = formData instanceof FormData ? Object.fromEntries(formData.entries()) : formData;
+
+    const data = {
+      nome: String(rawData.nome || '').trim(),
+      grupoMuscular: String(rawData.grupoMuscular || '').trim(),
+    };
 
     const res = await fetch(`${API_URL}/${id}`, {
       method: 'PUT',

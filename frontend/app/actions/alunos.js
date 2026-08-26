@@ -6,7 +6,6 @@ const API_URL = 'http://localhost:8081/alunos';
 
 export async function getAlunos() {
   try {
-    // Aponta para 'http://localhost:8081/alunos/'
     const res = await fetch(`${API_URL}/`, { cache: 'no-store' });
     if (!res.ok) return [];
     return await res.json();
@@ -29,15 +28,25 @@ export async function getAlunoById(id) {
 
 export async function criarAluno(formData) {
   try {
-    const data = formData instanceof FormData ? Object.fromEntries(formData.entries()) : formData;
+    let payload = {};
 
-    console.log('Dados enviados ao Backend:', data);
+    if (formData instanceof FormData) {
+      payload = Object.fromEntries(formData.entries());
+    } else {
+      payload = { ...formData };
+    }
 
-    // Envia POST para 'http://localhost:8081/alunos/' com a barra final exigida no Controller
+    // Se a data de matrícula não for informada no formulário, gera a data atual (YYYY-MM-DD)
+    if (!payload.dataMatricula || payload.dataMatricula.trim() === '') {
+      payload.dataMatricula = new Date().toISOString().split('T')[0];
+    }
+
+    console.log('Dados enviados ao Backend:', payload);
+
     const res = await fetch(`${API_URL}/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
+      body: JSON.stringify(payload),
     });
 
     if (res.ok) {

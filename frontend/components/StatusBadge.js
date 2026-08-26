@@ -1,17 +1,18 @@
 export default function StatusBadge({ status }) {
   const cores = {
-    PAGO: 'bg-green-100 text-green-800 border-green-300',
-    ATIVO: 'bg-green-100 text-green-800 border-green-300',
-    INATIVO: 'bg-red-100 text-red-800 border-red-300',
-    CANCELADO: 'bg-red-100 text-red-800 border-red-300',
-    PENDENTE: 'bg-amber-100 text-amber-800 border-amber-300',
+    PAGO: 'bg-emerald-950 text-emerald-400 border-emerald-800',
+    ATIVO: 'bg-emerald-950 text-emerald-400 border-emerald-800',
+    INATIVO: 'bg-rose-950 text-rose-400 border-rose-800',
+    CANCELADO: 'bg-rose-950 text-rose-400 border-rose-800',
+    PENDENTE: 'bg-amber-950 text-amber-400 border-amber-800',
   };
 
-  const estilo = cores[status?.toUpperCase()] || 'bg-gray-100 text-gray-800 border-gray-300';
+  const statusFormatado = status ? status.toUpperCase() : 'INATIVO';
+  const estilo = cores[statusFormatado] || 'bg-gray-800 text-gray-300 border-gray-700';
 
   return (
-    <span className={`px-2.5 py-0.5 text-xs font-semibold rounded-full border ${estilo}`}>
-      {status}
+    <span className={`px-2 py-0.5 text-[10px] font-bold rounded border uppercase tracking-wide ${estilo}`}>
+      {statusFormatado}
     </span>
   );
 }
