@@ -19,7 +19,7 @@ export default async function DetalhesInstrutorPage({ params }) {
       <p><strong className="text-gray-900">Salário:</strong> R$ {instrutor.salario}</p>
 
       <div className="pt-4 space-x-3">
-        <Link href={/instrutores/${id}/editar} className="bg-amber-500 text-white px-4 py-2 rounded hover:bg-amber-600 inline-block font-medium">
+        <Link href={`/instrutores/${id}/editar`} className="bg-amber-500 text-white px-4 py-2 rounded hover:bg-amber-600 inline-block font-medium">
           Editar
         </Link>
         <Link href="/instrutores" className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 inline-block font-medium">

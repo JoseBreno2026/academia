@@ -4,10 +4,13 @@ import { getExercicios, criarExercicio } from '@/app/actions/exercicios';
 import { getTiposExercicios } from '@/app/actions/tiposExercicios';
 
 export default async function ExerciciosPage() {
-  const [exercicios, tiposExercicios] = await Promise.all([
+  const [exerciciosBrutos, tiposExercicios] = await Promise.all([
     getExercicios().then((res) => res || []),
     getTiposExercicios().then((res) => res || []),
   ]);
+
+  // Ordena os exercícios pelo ID do menor para o maior (Crescente)
+  const exercicios = [...exerciciosBrutos].sort((a, b) => a.id - b.id);
 
   return (
     <div className="space-y-6">

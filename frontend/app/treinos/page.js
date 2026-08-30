@@ -14,10 +14,13 @@ function formatarDataSemTimezone(dataString) {
 }
 
 export default async function TreinosPage() {
-  const [treinos, exercicios] = await Promise.all([
+  const [treinosBrutos, exercicios] = await Promise.all([
     getTreinos().then((res) => res || []),
     getExercicios().then((res) => res || []),
   ]);
+
+  // Ordena os treinos pelo ID do menor para o maior (Crescente)
+  const treinos = [...treinosBrutos].sort((a, b) => a.id - b.id);
 
   return (
     <div className="space-y-6">

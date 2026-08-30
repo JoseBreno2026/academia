@@ -23,7 +23,7 @@ export default async function DetalhesAlunoPage({ params }) {
       </div>
 
       <div className="pt-4 space-x-3">
-        <Link href={/alunos/${id}/editar} className="bg-amber-500 text-white px-4 py-2 rounded hover:bg-amber-600 inline-block font-medium">
+        <Link href={`/alunos/${id}/editar`} className="bg-amber-500 text-white px-4 py-2 rounded hover:bg-amber-600 inline-block font-medium">
           Editar
         </Link>
         <Link href="/alunos" className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 inline-block font-medium">

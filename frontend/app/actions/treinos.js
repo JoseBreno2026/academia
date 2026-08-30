@@ -28,13 +28,12 @@ export async function getTreinoById(id) {
 
 export async function criarTreino(payload) {
   try {
-    // Espera um objeto JS diretamente ou trata o FormData
     let data = payload;
     if (payload instanceof FormData) {
       const rawData = Object.fromEntries(payload.entries());
       data = {
         nomeTreino: rawData.nomeTreino,
-        dataCriacao: rawData.dataCriacao || null, // <-- ADICIONADO AQUI
+        dataCriacao: rawData.dataCriacao || null,
         dataFim: rawData.dataFim || null,
         ativo: rawData.ativo === 'true',
         instrutorId: rawData.instrutorId ? Number(rawData.instrutorId) : null,
@@ -67,14 +66,23 @@ export async function atualizarTreino(id, payload) {
     let data = payload;
     if (payload instanceof FormData) {
       const rawData = Object.fromEntries(payload.entries());
+
       data = {
         nomeTreino: rawData.nomeTreino,
-        dataCriacao: rawData.dataCriacao || null, // <-- ADICIONADO TAMBÉM NO UPDATE
         dataFim: rawData.dataFim || null,
         ativo: rawData.ativo === 'true',
-        instrutorId: rawData.instrutorId ? Number(rawData.instrutorId) : null,
         exerciciosIds: payload.getAll('exerciciosIds').map(Number),
       };
+
+      // Só envia dataCriacao se ela realmente existir no formulário
+      if (rawData.dataCriacao) {
+        data.dataCriacao = rawData.dataCriacao;
+      }
+
+      // Só envia instrutorId se o campo existir no formulário
+      if (rawData.instrutorId) {
+        data.instrutorId = Number(rawData.instrutorId);
+      }
     }
 
     const res = await fetch(`${API_URL}/${id}`, {

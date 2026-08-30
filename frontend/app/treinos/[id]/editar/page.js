@@ -4,7 +4,6 @@ import { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { getTreinoById, atualizarTreino } from '@/app/actions/treinos';
-import { getInstrutores } from '@/app/actions/instrutores';
 import { getExercicios } from '@/app/actions/exercicios';
 
 export default function EditarTreinoPage({ params }) {
@@ -12,7 +11,6 @@ export default function EditarTreinoPage({ params }) {
   const { id } = use(params);
 
   const [treino, setTreino] = useState(null);
-  const [instrutores, setInstrutores] = useState([]);
   const [exercicios, setExercicios] = useState([]);
   const [carregando, setCarregando] = useState(true);
   const [salvando, setSalvando] = useState(false);
@@ -20,18 +18,16 @@ export default function EditarTreinoPage({ params }) {
   useEffect(() => {
     async function carregar() {
       try {
-        const [treinoData, instrutoresData, exerciciosData] = await Promise.all([
+        const [treinoData, exerciciosData] = await Promise.all([
           getTreinoById(id),
-          getInstrutores(),
           getExercicios(),
         ]);
 
         if (treinoData) setTreino(treinoData);
-        if (Array.isArray(instrutoresData)) setInstrutores(instrutoresData);
         if (Array.isArray(exerciciosData)) setExercicios(exerciciosData);
       } catch (err) {
         console.error('Erro ao carregar dados:', err);
-      } finally {
+      } finally { 
         setCarregando(false);
       }
     }
@@ -143,24 +139,6 @@ export default function EditarTreinoPage({ params }) {
                 <option value="false">INATIVO</option>
               </select>
             </div>
-          </div>
-
-          <div>
-            <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-1">
-              INSTRUTOR RESPONSÁVEL
-            </label>
-            <select
-              name="instrutorId"
-              defaultValue={treino.instrutorId || treino.instrutor?.id || ''}
-              className="w-full bg-[#0b0e14] border border-gray-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#a3e635]"
-            >
-              <option value="">Selecione o Instrutor...</option>
-              {instrutores.map((ins) => (
-                <option key={ins.id} value={ins.id}>
-                  {ins.nome} {ins.especialidade ? `(${ins.especialidade})` : ''}
-                </option>
-              ))}
-            </select>
           </div>
 
           <div>
