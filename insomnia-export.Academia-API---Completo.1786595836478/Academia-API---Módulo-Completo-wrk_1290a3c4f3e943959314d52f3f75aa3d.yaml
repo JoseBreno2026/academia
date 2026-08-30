@@ -228,7 +228,7 @@ collection:
             meta:
               id: req_e8654b916a94410fb1e8e395707431ed
               created: 1786567476839
-              modified: 1786595531293
+              modified: 1787894546384
               isPrivate: false
               description: ""
               sortKey: -1786595531247
@@ -238,8 +238,8 @@ collection:
               text: |-
                 {
                   "nome": "João Silva",
-                  "cpf": "123456789000",
-                  "email": "joao@email.com",
+                  "cpf": "12345678913",
+                  "email": "joao123@email.com",
                   "telefone": "87999998888",
                   "matricula": "2026001",
                   "dataMatricula": "2026-08-12",
@@ -294,7 +294,7 @@ collection:
             meta:
               id: req_09891d80cdc14064a4d77d72804cbdcb
               created: 1786567751632
-              modified: 1786595541400
+              modified: 1787894491376
               isPrivate: false
               description: ""
               sortKey: -1786595531647
@@ -327,7 +327,7 @@ collection:
             meta:
               id: req_9d0cadb3a6ae4f2a910a659db6d38706
               created: 1786569616852
-              modified: 1786595543841
+              modified: 1787894524068
               isPrivate: false
               description: ""
               sortKey: -1786595531747
@@ -360,7 +360,7 @@ collection:
             meta:
               id: req_594050976b1147baae6abbbdc2b134bd
               created: 1786569679920
-              modified: 1786595536871
+              modified: 1787894509820
               isPrivate: false
               description: ""
               sortKey: -1786595531447
@@ -371,8 +371,8 @@ collection:
                 {
                   "nome": "João Silva",
                   "cpf": "123456789990",
-                  "email": "joao@email.com",
-                  "telefone": "87999998888",
+                  "email": "joao123@email.com",
+                  "telefone": "87999997788",
                   "matricula": "2026001",
                   "dataMatricula": "2026-08-12",
                   "statusMatricula": "ATIVO"
@@ -388,12 +388,12 @@ collection:
                 send: true
                 store: true
               rebuildPath: true
-          - url: http://localhost:8081/alunos/9
+          - url: http://localhost:8081/alunos/2
             name: Remover Aluno
             meta:
               id: req_df40f4f3f15e4e61beb5f89991006b20
               created: 1786569792706
-              modified: 1786595534440
+              modified: 1787894532353
               isPrivate: false
               description: ""
               sortKey: -1786595531347
