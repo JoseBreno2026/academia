@@ -5,7 +5,7 @@ Aplicação web full-stack desenvolvida para gerenciar as rotinas e operações 
 ## 👥 Autores
 - Jose Breno Da Silva Almeida ([@JoseBreno2026](https://github.com/JoseBreno2026))
 - Jose Almeida de Freitas Neto ([@josealmeidatech](https://github.com/josealmeidatech))
-- Lennath Conrado Vasconcelos Ventura Andrade ([@Lennarth2026]((https://github.com/Lennarth2026)))
+- Lennath Conrado Vasconcelos Ventura Andrade ([@Lennarth2026](https://github.com/Lennarth2026))
 ## 🚀 Funcionalidades
 - Gestão de alunos, instrutores, planos, pagamentos, treinos, exercícios e tipos de exercícios.
 - Controle e acompanhamento de rotinas da academia.
