@@ -4,26 +4,29 @@ Aplicação web full-stack para gerenciar as operações de uma academia: alunos
 
 Projeto desenvolvido na disciplina de Programação Orientada a Objetos (UFAPE).
 
-<!-- Adicione aqui um print da tela principal: -->
+<!-- Quando tiver prints, salve em docs/ e troque este comentário pela imagem: -->
 <!-- ![Tela principal](docs/screenshot-home.png) -->
 
 ## 🚀 Funcionalidades
 
-- Cadastro e gestão de **alunos** e **instrutores**
-- **Planos** de assinatura e controle de **pagamentos**
-- Montagem de **treinos**, catálogo de **exercícios** e **tipos de exercício**
-- Validação de dados e tratamento global de erros na API
-- Interface web responsiva com tema escuro
+- CRUD completo de **alunos**, **instrutores**, **planos**, **pagamentos**, **treinos**, **exercícios** e **tipos de exercício**
+- Treinos vinculados a um instrutor e compostos por uma lista de exercícios
+- Alunos associados a um plano, a treinos e a pagamentos
+- Busca de alunos e instrutores por CPF ou por ID
+- Validação dos dados de entrada (Bean Validation) com mensagens de erro na API
+- Interface web com tema escuro
 
 ## 🧱 Arquitetura
 
-Back-end em camadas, seguindo POO e o padrão Fachada:
+Back-end em camadas, com POO e o padrão Fachada. O código fica em `src/main/java/br/edu/ufape/poo/academia/`:
 
 ```
 comunicacao/  → controllers REST, DTOs (request/response), conversores e tratamento de exceções
 negocio/      → entidades (basico), regras de cadastro, exceções de negócio e Fachada
 dados/        → repositórios Spring Data JPA
 ```
+
+Modelo de dados: `Aluno` e `Instrutor` herdam de `Pessoa`. O `Aluno` possui um `Plano`, uma lista de `Treino` e uma lista de `Pagamento`. Cada `Treino` pertence a um `Instrutor` e tem uma lista de `Exercicio`, e cada `Exercicio` tem um `TipoExercicio`.
 
 ![Diagrama do projeto](docs/diagrama.png)
 
@@ -42,7 +45,7 @@ dados/        → repositórios Spring Data JPA
 - Java 17 ou superior
 - Node.js 20 ou superior
 - PostgreSQL
-- (Maven já vem incluso via `mvnw`)
+- Maven (já incluso via `mvnw`)
 
 ## ⚙️ Como executar
 
@@ -63,7 +66,7 @@ CREATE USER poo2026 WITH PASSWORD 'sua_senha_aqui';
 GRANT ALL PRIVILEGES ON DATABASE academia_bd TO poo2026;
 ```
 
-> No PostgreSQL 15+, pode ser necessário também: `\c academia_bd` e `GRANT ALL ON SCHEMA public TO poo2026;`
+> No PostgreSQL 15 ou superior, pode ser necessário também: `\c academia_bd` e `GRANT ALL ON SCHEMA public TO poo2026;`
 
 As tabelas são criadas automaticamente na primeira execução (`ddl-auto=update`).
 
@@ -82,21 +85,29 @@ Windows (PowerShell):
 ```powershell
 $env:DB_PASSWORD="sua_senha_aqui"
 ```
+
 Linux/macOS:
 ```bash
 export DB_PASSWORD=sua_senha_aqui
 ```
+
 Na IDE (Eclipse/STS): *Run Configurations → Environment* e adicione `DB_PASSWORD`.
+
+> A variável vale apenas para o terminal em que foi definida. Rode a API nesse mesmo terminal.
 
 ### 4. Subir o back-end
 
+Na pasta raiz do projeto:
+
 ```bash
-./mvnw spring-boot:run        # Windows: mvnw.cmd spring-boot:run
+./mvnw spring-boot:run          # Windows (PowerShell): .\mvnw.cmd spring-boot:run
 ```
 
 A API sobe em http://localhost:8081.
 
 ### 5. Subir o front-end
+
+Em outro terminal:
 
 ```bash
 cd frontend
@@ -125,19 +136,19 @@ Exemplos de requisições prontas estão em `docs/insomnia-collection.yaml` (imp
 ## 🧪 Testes
 
 ```bash
-./mvnw test
+./mvnw test                     # Windows (PowerShell): .\mvnw.cmd test
 ```
 
-> Os testes de integração usam o banco PostgreSQL configurado, então ele precisa estar rodando e com `DB_PASSWORD` definida.
+> ⚠️ Os testes de integração usam o PostgreSQL configurado (ele precisa estar rodando, com `DB_PASSWORD` definida) e **gravam dados no banco**. Use um banco de desenvolvimento, nunca um com dados importantes.
 
 ## 📚 Aprendizados
 
-- Modelagem de entidades e relacionamentos com JPA/Hibernate
-- Construção de API REST em camadas com DTOs, conversores e tratamento global de erros
-- Integração entre front-end Next.js e back-end Java
+- Modelagem de entidades, herança e relacionamentos com JPA/Hibernate
+- Construção de API REST em camadas com DTOs, conversores e tratamento de exceções
+- Integração entre front-end Next.js (Server Actions) e back-end Java
 
 ## 👥 Autores
 
 - José Breno da Silva Almeida ([@JoseBreno2026](https://github.com/JoseBreno2026))
 - José Almeida de Freitas Neto ([@josealmeidatech](https://github.com/josealmeidatech))
-- Lennath Conrado Vasconcelos Ventura Andrade ([@Lennarth2026](https://github.com/Lennarth2026))
+- Lennarth Conrado Vasconcelos Ventura Andrade ([@Lennarth2026](https://github.com/Lennarth2026))
