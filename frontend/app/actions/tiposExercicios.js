@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 
-const API_URL = 'http://localhost:8081/api/tipos-exercicios';
+const API_URL = `${process.env.API_BASE_URL || 'http://localhost:8081'}/api/tipos-exercicios`;
 
 export async function getTiposExercicios() {
   try {

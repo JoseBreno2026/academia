@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 
-const API_URL = 'http://localhost:8081/alunos';
+const API_URL = `${process.env.API_BASE_URL || 'http://localhost:8081'}/alunos`;
 
 export async function getAlunos() {
   try {

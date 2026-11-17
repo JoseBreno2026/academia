@@ -31,3 +31,18 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Eclipse ###
+.metadata/
+bin/
+
+### Variaveis de ambiente / segredos ###
+.env
+.env.*
+!.env.example
+application-local.properties
+
+### Logs / SO ###
+*.log
+.DS_Store
+Thumbs.db
